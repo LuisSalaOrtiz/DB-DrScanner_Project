@@ -30,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Intent loginIntent = getIntent();
+        TextView welcomeTxtView = (TextView) findViewById(R.id.textView);
+        welcomeTxtView.setText(loginIntent.getStringExtra("user"));
 
     }
 
