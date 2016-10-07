@@ -12,21 +12,34 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ShopScanner"
+        android:text="Welcome"
+        android:textSize="40dp"
+        android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textSize="50dp"
-        android:id="@+id/textView" />
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="New Patient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/scanButton"
+        android:layout_marginBottom="15dp"
+        android:id="@+id/newPatientBtn"
+        android:layout_alignEnd="@+id/scanButton"
+        android:layout_alignStart="@+id/scanButton"
+        android:textSize="20dp"
+        android:textColor="#b52626" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Scan"
         android:id="@+id/scanButton"
-        android:layout_centerVertical="true"
         android:textColor="#b52626"
         android:textSize="25dp"
-        android:layout_alignEnd="@+id/textView"
-        android:layout_alignStart="@+id/textView" />
+        android:layout_marginBottom="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
 </RelativeLayout>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_payment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.gilbertojimenezorench.myapp.PaymentActivity"
+    android:background="#FFFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="1000dp"
+            android:orientation="vertical">
+
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/visaRadioBtn"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/paymentcards"
+                android:layout_alignParentTop="true"
+                android:layout_alignBottom="@+id/visaRadioBtn"
+                android:id="@+id/cardImageView"
+                android:paddingLeft="-77dp"
+                android:layout_toEndOf="@+id/visaRadioBtn"
+                android:paddingRight="-77dp"
+                android:scaleX=".80"
+                android:scaleY=".80"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/paypalRadioBtn"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/cardImageView" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/paymentopt2"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/paypalRadioBtn"
+                android:id="@+id/paypalImageView"
+                android:layout_alignBottom="@+id/paypalRadioBtn" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/visaNameTxt"
+                android:hint="Name (as it appears on your card)"
+                android:layout_marginTop="12dp"
+                android:layout_below="@+id/visaRadioBtn"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Card Number (no dashes or spaces)"
+                android:ems="10"
+                android:layout_below="@+id/visaNameTxt"
+                android:layout_alignParentStart="true"
+                android:id="@+id/cardNumberTxt"
+                android:layout_alignParentEnd="true" />
+
+            <Spinner
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/expMonthSpinner"
+                android:popupBackground="@android:drawable/spinner_background"
+                android:layout_alignTop="@+id/expYearSpinner"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text=" Expiration Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/expDateTxtView"
+                android:fontFamily="sans-serif"
+                android:textSize="18dp"
+                android:ems="10"
+                android:textColor="@color/zxing_custom_result_view"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_below="@+id/cardNumberTxt"
+                android:layout_alignParentStart="true" />
+
+            <Spinner
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
+                android:id="@+id/expYearSpinner"
+                android:layout_below="@+id/expDateTxtView"
+                android:layout_toEndOf="@+id/expMonthSpinner" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:width="120dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="CVV Number"
+                android:ems="10"
+                android:id="@+id/cvvEditTxt"
+                android:layout_below="@+id/expMonthSpinner"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:text="The 3 digit on the back \nof the card."
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/cvcTextView"
+                android:layout_alignTop="@+id/cvvEditTxt"
+                android:layout_alignBottom="@+id/cvvEditTxt"
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/cvvEditTxt"
+                android:textColor="@color/zxing_custom_result_view"
+                android:textStyle="normal|bold"
+                android:textSize="14sp" />
+
+            <TextView
+                android:text="Billing Information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/billInfoTextView"
+                android:layout_marginTop="46dp"
+                android:layout_below="@+id/cvvEditTxt"
+                android:layout_alignParentStart="true"
+                android:textStyle="normal|bold"
+                android:textSize="20sp"
+                android:textColor="@color/zxing_custom_result_view" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/addr1EditText"
+                android:layout_below="@+id/billInfoTextView"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="12dp"
+                android:hint="Address Line 1"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/addr2EditText"
+                android:layout_below="@+id/addr1EditText"
+                android:layout_alignParentStart="true"
+                android:hint="Address Line 2"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/cityEditText"
+                android:layout_below="@+id/addr2EditText"
+                android:layout_alignParentStart="true"
+                android:hint="City"
+                android:layout_alignParentEnd="true" />
+
+            <Spinner
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/countrySpinner"
+                android:popupBackground="@android:drawable/spinner_background"
+                android:layout_below="@+id/cityEditText"
+                android:layout_alignParentStart="true" />
+
+            <Spinner
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/stateSpinner"
+                android:popupBackground="@android:drawable/spinner_background"
+                android:layout_centerVertical="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@id/countrySpinner"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="ZIP/postal code"
+                android:ems="10"
+                android:id="@+id/zipEditText"
+                android:layout_below="@+id/stateSpinner"
+                android:layout_alignParentStart="true" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Phone"
+                android:ems="10"
+                android:id="@+id/phoneEditText"
+                android:layout_below="@+id/zipEditText"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

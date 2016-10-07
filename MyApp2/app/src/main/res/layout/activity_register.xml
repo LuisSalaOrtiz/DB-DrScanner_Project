@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_register"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.gilbertojimenezorench.myapp.RegisterActivity">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="8"
+        android:id="@+id/lnametxt"
+        android:hint="@string/lnametexthint"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Sign Up"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/registerBtn"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="8"
+        android:id="@+id/fnametxt"
+        android:hint="@string/fnametexthint"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textEmailAddress"
+        android:ems="10"
+        android:id="@+id/remailtxt"
+        android:hint="@string/remailtext"
+        android:layout_below="@+id/lnametxt"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/rpasstxt"
+        android:hint="@string/rpasstext"
+        android:layout_below="@+id/remailtxt"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="21dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/rcelltext"
+        android:hint="@string/rcelltext"
+        android:layout_below="@+id/rpasstxt"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="22dp" />
+
+    <RadioButton
+        android:text="Nurse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/nurseRadioBtn"
+        android:layout_alignBaseline="@+id/adminRadioBtn"
+        android:layout_alignBottom="@+id/adminRadioBtn"
+        android:layout_alignEnd="@+id/fnametxt" />
+
+    <RadioButton
+        android:text="Admin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/adminRadioBtn"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/rcelltext"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

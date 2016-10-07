@@ -7,7 +7,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.gilbertojimenezorench.myapp.NewScanActivity">
+    tools:context="com.example.gilbertojimenezorench.myapp.NewScanActivity"
+    android:fadeScrollbars="false">
 
     <TextView
         android:layout_width="wrap_content"
@@ -57,7 +58,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add To List "
+        android:text="Print"
         android:id="@+id/addTo"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
