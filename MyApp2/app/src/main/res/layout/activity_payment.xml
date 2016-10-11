@@ -30,7 +30,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/visaRadioBtn"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:checked="true" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -50,7 +51,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/paypalRadioBtn"
                 android:layout_alignParentTop="true"
-                android:layout_toEndOf="@+id/cardImageView" />
+                android:layout_toEndOf="@+id/cardImageView"
+                android:visibility="invisible"
+                android:clickable="false" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -59,7 +62,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/paypalRadioBtn"
                 android:id="@+id/paypalImageView"
-                android:layout_alignBottom="@+id/paypalRadioBtn" />
+                android:layout_alignBottom="@+id/paypalRadioBtn"
+                android:visibility="invisible" />
 
             <EditText
                 android:layout_width="wrap_content"
