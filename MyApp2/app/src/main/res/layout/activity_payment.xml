@@ -22,7 +22,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="900dp"
+            android:minHeight="880dp"
             android:orientation="vertical">
 
 

@@ -29,7 +29,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".PaymentActivity"></activity>
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".GeneralUserActivity" />
+        <activity android:name=".PaymentConfirmationActivity"></activity>
     </application>
 
 </manifest>

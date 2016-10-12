@@ -6,25 +6,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-public class MainActivity extends AppCompatActivity {
-
-
+public class GeneralUserActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_general_user);
 
         Button scanButton = (Button) findViewById(R.id.scanButton);
         scanButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IntentIntegrator intent = new IntentIntegrator(MainActivity.this);
+                IntentIntegrator intent = new IntentIntegrator(GeneralUserActivity.this);
                 intent.initiateScan();
 
             }
@@ -53,4 +50,3 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
-
