@@ -96,6 +96,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
     }
 
+    @Override
+    public void onBackPressed() {
+        // do nothing.
+    }
+
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
@@ -336,9 +341,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
 //                finish();
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra("user", "Welcome, Carlos");
-                startActivity(intent);
+
+                if(mEmail.equals("luis.sala@upr.edu")&mPassword.equals("12345678")) {
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("user", "Welcome, Dr. Sala");
+                    startActivity(intent);
+                }
+                else if(mEmail.equals("gilberto.jimenez1@upr.edu")&mPassword.equals("12345678"))
+                {
+                    Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
+                    intent.putExtra("user", "Welcome, Gilberto");
+                    startActivity(intent);
+                }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();

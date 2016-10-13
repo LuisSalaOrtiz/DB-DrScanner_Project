@@ -10,16 +10,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.gilbertojimenezorench.myapp.OpeningActivity"
-    android:background="@android:color/white">
+    android:background="#424242">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/drscanneopenninglogo"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
+        app:srcCompat="@drawable/home"
         android:id="@+id/imageView"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        tools:ignore="ContentDescription,HardcodedText" />
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

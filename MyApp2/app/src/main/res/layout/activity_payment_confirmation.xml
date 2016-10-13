@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.gilbertojimenezorench.myapp.PaymentConfirmationActivity">
+    tools:context="com.example.gilbertojimenezorench.myapp.PaymentConfirmationActivity"
+    android:background="@drawable/back">
 
     <TextView
         android:text="Payment Authorized"
@@ -18,11 +19,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
         android:id="@+id/authorizedTextView"
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
         android:textSize="25sp" />
 
     <TextView
         android:text="TextView"
+        android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cardNumTextView"
@@ -34,6 +36,7 @@
 
     <TextView
         android:text="Carlos Santiago"
+        android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/fullNameTextView"
@@ -48,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
         android:id="@+id/cardTextView"
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         tools:text="Card:    "
         android:layout_below="@+id/authorizedTextView"
@@ -60,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="11dp"
         android:id="@+id/pnameTextView"
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
         android:textSize="18sp"
         android:layout_above="@+id/cardNumTextView"
         android:layout_alignStart="@+id/cardTextView" />
@@ -73,7 +76,7 @@
         android:layout_alignStart="@+id/cardTextView"
         android:layout_marginTop="11dp"
         android:id="@+id/amountTextView"
-        android:textColor="@android:color/black"
+        android:textColor="#FFFFFF"
         android:textSize="18sp" />
 
     <TextView
@@ -83,7 +86,8 @@
         android:id="@+id/totalTextView"
         android:layout_alignBaseline="@+id/amountTextView"
         android:layout_alignBottom="@+id/amountTextView"
-        android:layout_toEndOf="@+id/amountTextView" />
+        android:layout_toEndOf="@+id/amountTextView"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:text="10/15/2016"
@@ -92,7 +96,8 @@
         android:id="@+id/actualDateTextView"
         android:layout_alignBaseline="@+id/dateTextView"
         android:layout_alignBottom="@+id/dateTextView"
-        android:layout_toEndOf="@+id/dateTextView" />
+        android:layout_toEndOf="@+id/dateTextView"
+        android:textColor="#FFFFFF"/>
 
     <TextView
         android:text="Date:   "
@@ -101,9 +106,9 @@
         android:layout_marginTop="11dp"
         android:id="@+id/dateTextView"
         android:textSize="18sp"
-        android:textColor="@android:color/black"
         android:layout_below="@+id/amountTextView"
-        android:layout_alignStart="@+id/amountTextView" />
+        android:layout_alignStart="@+id/amountTextView"
+        android:textColor="#FFFFFF"/>
 
     <Button
         android:text="Close"

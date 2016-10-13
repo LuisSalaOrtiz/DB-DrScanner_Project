@@ -30,10 +30,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button logoutButton = (Button) findViewById(R.id.logOutBtn);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         Intent loginIntent = getIntent();
         TextView welcomeTxtView = (TextView) findViewById(R.id.welcomeTxtView);
         welcomeTxtView.setText(loginIntent.getStringExtra("user"));
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // do nothing.
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {

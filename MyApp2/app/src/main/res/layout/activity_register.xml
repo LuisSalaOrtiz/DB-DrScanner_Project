@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.gilbertojimenezorench.myapp.RegisterActivity">
+    tools:context="com.example.gilbertojimenezorench.myapp.RegisterActivity"
+    android:background="@drawable/back">
 
     <EditText
         android:layout_width="wrap_content"
@@ -17,6 +18,8 @@
         android:ems="8"
         android:id="@+id/lnametxt"
         android:hint="@string/lnametexthint"
+        android:textColorHint="#FFFFF0"
+        android:textColor="#FFFFFF"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 
@@ -37,7 +40,9 @@
         android:id="@+id/fnametxt"
         android:hint="@string/fnametexthint"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColorHint="#FFFFF0"
+        android:textColor="#FFFFFF" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -48,7 +53,9 @@
         android:hint="@string/remailtext"
         android:layout_below="@+id/lnametxt"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="18dp" />
+        android:layout_marginTop="18dp"
+        android:textColorHint="#FFFFF0"
+        android:textColor="#FFFFFF"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -59,7 +66,9 @@
         android:hint="@string/rpasstext"
         android:layout_below="@+id/remailtxt"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="21dp" />
+        android:layout_marginTop="21dp"
+        android:textColorHint="#FFFFF0"
+        android:textColor="#FFFFFF"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -70,7 +79,9 @@
         android:hint="@string/rcelltext"
         android:layout_below="@+id/rpasstxt"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="22dp" />
+        android:layout_marginTop="22dp"
+        android:textColorHint="#FFFFF0"
+        android:textColor="#FFFFFF"/>
 
     <RadioButton
         android:text="Nurse"
@@ -79,7 +90,8 @@
         android:id="@+id/nurseRadioBtn"
         android:layout_alignBaseline="@+id/adminRadioBtn"
         android:layout_alignBottom="@+id/adminRadioBtn"
-        android:layout_alignEnd="@+id/fnametxt" />
+        android:layout_alignEnd="@+id/fnametxt"
+        android:textColor="#FFFFFF"/>
 
     <RadioButton
         android:text="Admin"
@@ -88,6 +100,7 @@
         android:id="@+id/adminRadioBtn"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/rcelltext"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#FFFFFF"/>
 
 </RelativeLayout>
