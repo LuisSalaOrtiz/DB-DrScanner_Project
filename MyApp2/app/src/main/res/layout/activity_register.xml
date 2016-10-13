@@ -82,25 +82,35 @@
         android:layout_marginTop="22dp"
         android:textColorHint="#FFFFF0"
         android:textColor="#FFFFFF"/>
-
-    <RadioButton
-        android:text="Nurse"
+    <RadioGroup
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/nurseRadioBtn"
-        android:layout_alignBaseline="@+id/adminRadioBtn"
-        android:layout_alignBottom="@+id/adminRadioBtn"
+        android:layout_below="@id/rcelltext"
+        android:checkedButton="@+id/nurseRadioBtn"
+        android:baselineAligned="false"
+        android:clickable="false"
+        android:orientation="horizontal"
         android:layout_alignEnd="@+id/fnametxt"
-        android:textColor="#FFFFFF"/>
-
-    <RadioButton
-        android:text="Admin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/adminRadioBtn"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/rcelltext"
         android:layout_alignParentStart="true"
-        android:textColor="#FFFFFF"/>
+        android:layout_marginTop="15dp">
+
+        <RadioButton
+            android:text="Admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/adminRadioBtn"
+            android:layout_marginEnd="20dp"
+            android:textColor="#FFFFFF"/>
+
+        <RadioButton
+            android:text="Nurse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/nurseRadioBtn"
+            android:textColor="#FFFFFF" />
+
+
+    </RadioGroup>
+
 
 </RelativeLayout>

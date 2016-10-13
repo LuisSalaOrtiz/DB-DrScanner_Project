@@ -1,12 +1,18 @@
 package com.example.gilbertojimenezorench.myapp;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -29,10 +35,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -44,6 +52,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+
+    /**
+     * Id to identity Camera permission request.
+     */
+    private static final int REQUEST_CAMERA = 0;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -63,6 +76,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    private ArrayList<String> list;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +85,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-//        populateAutoComplete();
+        populateAutoComplete();
+        verifyCameraPermission();
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -94,11 +110,90 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        list = new ArrayList<String>();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                Toast.makeText(this, "You have logged out.", Toast.LENGTH_LONG).show();
+
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
+        if (requestCode == 2) {
+            if(resultCode == Activity.RESULT_OK){
+                Toast.makeText(this, "You are now registered. Please log in.", Toast.LENGTH_LONG).show();
+                list.add(data.getStringExtra("email"));
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+            }
+        }
     }
 
     @Override
     public void onBackPressed() {
-        // do nothing.
+        moveTaskToBack(true);
+    }
+
+    /**
+     * Verifies if the user has enabled camera permission and enables it
+     */
+    private boolean enableCameraPermission()
+    {
+        // Assume thisActivity is the current activity
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA);
+
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+//        else if(permissionCheck == PackageManager.PERMISSION_DENIED)
+//        {
+//            AlertDialog.Builder alertbuilder = new AlertDialog.Builder(this.getBaseContext());
+//            alertbuilder.setMessage(R.string.camera_permission_rationale);
+//            alertbuilder.setCancelable(false);
+//
+//            alertbuilder.setPositiveButton(
+//                    "Yes",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int id) {
+//                            moveTaskToBack(true);
+//                        }
+//                    });
+//        }
+        if(permissionCheck!=PackageManager.PERMISSION_GRANTED)
+        {
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+
+                Snackbar.make(mEmailView, R.string.camera_permission_rationale, Snackbar.LENGTH_INDEFINITE)
+                        .setAction(android.R.string.ok, new View.OnClickListener() {
+                            @Override
+                            @TargetApi(Build.VERSION_CODES.M)
+                            public void onClick(View v) {
+                                requestPermissions(new String[]{CAMERA}, REQUEST_CAMERA);
+                            }
+                        });
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CAMERA},
+                        REQUEST_CAMERA);
+            }
+        }
+        return false;
     }
 
     private void populateAutoComplete() {
@@ -107,6 +202,31 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         getLoaderManager().initLoader(0, null, this);
+    }
+
+    private void verifyCameraPermission()
+    {
+        if(!enableCameraPermission())
+        {
+//            int permissionCheck = ContextCompat.checkSelfPermission(this,
+//                    Manifest.permission.CAMERA);
+//
+//            if(permissionCheck == PackageManager.PERMISSION_DENIED)
+//            {
+//                AlertDialog.Builder alertbuilder = new AlertDialog.Builder(this.getBaseContext());
+//                alertbuilder.setMessage(R.string.camera_permission_rationale);
+//                alertbuilder.setCancelable(false);
+//
+//                alertbuilder.setPositiveButton(
+//                        "Yes",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialog, int id) {
+//                                moveTaskToBack(true);
+//                            }
+//                        });
+//            }
+            return;
+        }
     }
 
     private boolean mayRequestContacts() {
@@ -137,6 +257,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_CAMERA) {
+            if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                enableCameraPermission();
+            }
+        }
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 populateAutoComplete();
@@ -345,13 +470,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 if(mEmail.equals("luis.sala@upr.edu")&mPassword.equals("12345678")) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     intent.putExtra("user", "Welcome, Dr. Sala");
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                 }
-                else if(mEmail.equals("gilberto.jimenez1@upr.edu")&mPassword.equals("12345678"))
+                else if(mEmail.equals("gilberto.jimenez@upr.edu")&mPassword.equals("12345678"))
                 {
                     Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
                     intent.putExtra("user", "Welcome, Gilberto");
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
+                }
+                else if(list.contains(mEmail)&mPassword.equals("12345678"))
+                {
+                    Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
+                    intent.putExtra("user", "Welcome");
+                    startActivityForResult(intent, 1);
+                }
+                else if((mEmail.equals("gilberto.jimenez@upr.edu")||mEmail.equals("gilberto.jimenez@upr.edu")||list.contains(mEmail))&!mPassword.equals("12345678"))
+                {
+                    Toast.makeText(LoginActivity.this, "Wrong Password, please try again.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                    startActivityForResult(intent, 2);
                 }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -32,6 +33,8 @@ public class GeneralUserActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(GeneralUserActivity.this, LoginActivity.class);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -39,6 +42,8 @@ public class GeneralUserActivity extends AppCompatActivity {
         Intent loginIntent = getIntent();
         TextView welcomeTxtView = (TextView) findViewById(R.id.welcomeTxtView);
         welcomeTxtView.setText(loginIntent.getStringExtra("user"));
+
+        Toast.makeText(this, "You are logged in.", Toast.LENGTH_LONG).show();
 
     }
 
@@ -53,12 +58,22 @@ public class GeneralUserActivity extends AppCompatActivity {
             String contents = scanResult.getContents();
             String format = scanResult.getFormatName();
 
-            Intent newScan = new Intent(this, NewScanActivity.class);
-            newScan.putExtra("CONTENTS", contents);
-            newScan.putExtra("FORMAT", format);
+            if(contents==null | format == null)
+            {
+                return;
+            }
+            else
+            {
+                Intent newScan = new Intent(this, NewScanActivity.class);
+                newScan.putExtra("CONTENTS", contents);
+                newScan.putExtra("FORMAT", format);
 
-            startActivity(newScan);
+                startActivity(newScan);
+            }
 
+        }
+        else{
+            finish();
         }
         // else continue with any other code you need in the method
 

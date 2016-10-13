@@ -1,6 +1,8 @@
 package com.example.gilbertojimenezorench.myapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                setResult(RESULT_OK, intent);
                 finish();
             }
         });
@@ -42,11 +46,15 @@ public class MainActivity extends AppCompatActivity {
         TextView welcomeTxtView = (TextView) findViewById(R.id.welcomeTxtView);
         welcomeTxtView.setText(loginIntent.getStringExtra("user"));
 
+        Toast.makeText(this, "You are logged in.", Toast.LENGTH_LONG).show();
+
     }
+
+
 
     @Override
     public void onBackPressed() {
-        // do nothing.
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -55,15 +63,23 @@ public class MainActivity extends AppCompatActivity {
             String contents = scanResult.getContents();
             String format = scanResult.getFormatName();
 
-            Intent newScan = new Intent(this, NewScanActivity.class);
-            newScan.putExtra("CONTENTS", contents);
-            newScan.putExtra("FORMAT", format);
+            if(contents==null | format == null)
+            {
+                return;
+            }
+            else
+            {
+                Intent newScan = new Intent(this, NewScanActivity.class);
+                newScan.putExtra("CONTENTS", contents);
+                newScan.putExtra("FORMAT", format);
 
-            startActivity(newScan);
+                startActivity(newScan);
+            }
+        }
+        else{
 
         }
         // else continue with any other code you need in the method
-
     }
 }
 

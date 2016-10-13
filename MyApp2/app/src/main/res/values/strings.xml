@@ -18,10 +18,12 @@
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."</string>
+    <string name="camera_permission_rationale">Camera permissions are needed in order to use this app.</string>
 
     <string name="fnametexthint">First Name</string>
     <string name="lnametexthint">Last Name</string>
     <string name="remailtext">Email</string>
     <string name="rpasstext">New Password</string>
     <string name="rcelltext">Mobile Phone Number</string>
+    <string name="title_activity_login2">Sign in</string>
 </resources>

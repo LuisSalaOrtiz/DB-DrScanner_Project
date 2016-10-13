@@ -23,7 +23,7 @@
         android:textSize="25sp" />
 
     <TextView
-        android:text="TextView"
+        android:text="xxxxxxxxxxxx3030"
         android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,8 +31,7 @@
         android:layout_alignBaseline="@+id/cardTextView"
         android:layout_alignBottom="@+id/cardTextView"
         android:layout_alignEnd="@+id/authorizedTextView"
-        android:layout_toEndOf="@+id/cardTextView"
-        tools:text="xxxxxxxxxxxx3030" />
+        android:layout_toEndOf="@+id/cardTextView" />
 
     <TextView
         android:text="Carlos Santiago"
