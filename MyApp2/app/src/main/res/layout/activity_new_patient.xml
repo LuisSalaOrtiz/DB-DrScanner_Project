@@ -112,8 +112,7 @@
                 android:entries="@array/marital_selection"
                 android:prompt="@string/mstatus"
                 android:layout_below="@+id/maritalStatus"
-                android:background="#FFFFFF"
-                android:theme="@style/Widget.AppCompat.Spinner" />
+                android:background="#FFFFFF" />
 
 
             <EditText
@@ -423,10 +422,9 @@
                 android:layout_marginTop="11dp"
                 android:id="@+id/bStatus"
                 android:entries="@array/blood_selection"
-                android:prompt="@string/mstatus"
+                android:prompt="@string/bstatus"
                 android:layout_below="@+id/bloodType"
-                android:background="#FFFFFF"
-                android:theme="@style/Widget.AppCompat.Spinner"/>
+                android:background="#FFFFFF"/>
 
 
             <TextView
@@ -462,10 +460,9 @@
                 android:layout_marginTop="11dp"
                 android:id="@+id/medStatus"
                 android:entries="@array/med_selection"
-                android:prompt="@string/mstatus"
+                android:prompt="@string/medstatus"
                 android:layout_below="@+id/medicareCom"
-                android:background="#FFFFFF"
-                android:theme="@style/Widget.AppCompat.Spinner"/>
+                android:background="#FFFFFF"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -487,7 +484,6 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentStart="true"
                 android:id="@+id/submitBtn"
-                android:textColor="#FFFFFFFF"
                 android:background="#FF98FF69"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="20dp"

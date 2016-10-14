@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -28,12 +30,14 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
-        <activity android:name=".NewScanActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".GeneralUserActivity" />
         <activity android:name=".PaymentConfirmationActivity" />
+        <activity android:name=".DoctorPatientFileActivity" />
+        <activity android:name=".NewPatientActivity"/>
+        <activity android:name=".PatientFileActivity"/>
     </application>
 
 </manifest>

@@ -35,7 +35,7 @@ public class GeneralUserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(GeneralUserActivity.this, LoginActivity.class);
                 setResult(RESULT_OK, intent);
-                finish();
+                startActivity(intent);
             }
         });
 
@@ -43,7 +43,7 @@ public class GeneralUserActivity extends AppCompatActivity {
         TextView welcomeTxtView = (TextView) findViewById(R.id.welcomeTxtView);
         welcomeTxtView.setText(loginIntent.getStringExtra("user"));
 
-        Toast.makeText(this, "You are logged in.", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "You are logged in.", Toast.LENGTH_LONG).show();
 
     }
 

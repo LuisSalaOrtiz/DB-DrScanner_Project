@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,8 +23,9 @@ public class PaymentConfirmationActivity extends AppCompatActivity {
         TextView name = (TextView) findViewById(R.id.fullNameTextView);
         name.setText(getIntent().getStringExtra("name"));
 
+        String cardnumber = getIntent().getStringExtra("card");
         TextView card = (TextView) findViewById(R.id.cardNumTextView);
-        card.setText("  XXXXXXXXXXXX"+ getIntent().getStringExtra("card").subSequence(12, 16));
+        card.setText("  XXXXXXXXXXXX"+ cardnumber.subSequence(cardnumber.length()-4, cardnumber.length()));
 
         TextView amount = (TextView) findViewById(R.id.totalTextView);
         amount.setText("$1.00");
@@ -44,6 +46,7 @@ public class PaymentConfirmationActivity extends AppCompatActivity {
                 Intent intent = new Intent(PaymentConfirmationActivity.this, LoginActivity.class);
                 intent.putExtra("email", getIntent().getStringExtra("email"));
                 setResult(Activity.RESULT_OK,intent);
+                Toast.makeText(PaymentConfirmationActivity.this, "You are registered and can now log in.", Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
         });

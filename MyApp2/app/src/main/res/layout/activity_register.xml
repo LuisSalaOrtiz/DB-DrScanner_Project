@@ -30,6 +30,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:id="@+id/registerBtn"
+        android:background="@color/black_overlay"
         android:layout_alignParentEnd="true" />
 
     <EditText

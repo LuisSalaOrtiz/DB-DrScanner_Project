@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -30,7 +31,18 @@ public class PaymentActivity extends AppCompatActivity {
                 String card = ((EditText) findViewById(R.id.cardNumberTxt)).getText().toString();
                 intent.putExtra("card", card);
 
-                startActivity(intent);
+                if(name==null||card==null)
+                {
+                    Toast.makeText(PaymentActivity.this, "All information has to be completed.", Toast.LENGTH_LONG).show();
+                }
+                else if(card.length()<16||card.length()>16)
+                {
+                    Toast.makeText(PaymentActivity.this, "Card number must have 16 digits.", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                    startActivity(intent);
+                }
             }
         });
 

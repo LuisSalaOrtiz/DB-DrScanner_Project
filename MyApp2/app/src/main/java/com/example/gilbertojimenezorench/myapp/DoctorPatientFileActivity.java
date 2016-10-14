@@ -8,11 +8,12 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class DoctorPatientFileActivity extends AppCompatActivity {
-Button edit,delete;
+    Button edit,delete;
     String name,lastName,email,age,phone,physical,postal,social,weight,height,cardNumber;
     TextView nameView, lastNameView, emailView, ageView,phoneView,socialView
             ,physicalView,postalView,weightView,heightView,cardNumberView
@@ -104,7 +105,7 @@ Button edit,delete;
                 String heighttxt = heightView.getText().toString();
                 String cardNumbertxt = cardNumberView.getText().toString();
 
-                String selectedRadioValue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
+//                String selectedRadioValue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
 
                 myIntent.putExtra("BLOOD",Blood);
                 myIntent.putExtra("MEDCOM",MedCompany);
@@ -120,8 +121,8 @@ Button edit,delete;
                 myIntent.putExtra("WEIGHT",weighttxt);
                 myIntent.putExtra("HEIGHT",heighttxt);
                 myIntent.putExtra("CARDNUM",cardNumbertxt);
-                myIntent.putStringArrayListExtra("SELECT",selection);
-                myIntent.putExtra("RADIO",selectedRadioValue);
+//                myIntent.putStringArrayListExtra("SELECT",selection);
+//                myIntent.putExtra("RADIO",selectedRadioValue);
 
                 startActivity(myIntent);
             }
@@ -133,7 +134,9 @@ Button edit,delete;
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(DoctorPatientFileActivity.this, MainActivity.class);
+                Toast.makeText(DoctorPatientFileActivity.this, "File has been deleted", Toast.LENGTH_LONG).show();
+                startActivity(intent);
             }
         });
 
@@ -141,7 +144,8 @@ Button edit,delete;
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent intent = new Intent(DoctorPatientFileActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

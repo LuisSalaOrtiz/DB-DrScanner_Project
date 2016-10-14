@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 setResult(RESULT_OK, intent);
-                finish();
+                startActivity(intent);
             }
         });
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         TextView welcomeTxtView = (TextView) findViewById(R.id.welcomeTxtView);
         welcomeTxtView.setText(loginIntent.getStringExtra("user"));
 
-        Toast.makeText(this, "You are logged in.", Toast.LENGTH_LONG).show();
+//        Toast.makeText(this, "You are logged in.", Toast.LENGTH_LONG).show();
 
     }
 
@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity {
 //
 //                startActivity(newScan);
 
-                if(intent.getStringExtra("new")==null)
+                if(intent.hasExtra("new"))
                 {
-                    Intent scan = new Intent(this, DoctorPatientFileActivity.class);
+                    Intent scan = new Intent(MainActivity.this, DoctorPatientFileActivity.class);
                     scan.putExtra("CONTENTS", contents);
                     scan.putExtra("FORMAT", format);
 
                     startActivity(scan);
-                } else if(intent.getStringExtra("new").equals("new"))
+                } else
                 {
                     Intent newIntent = new Intent(MainActivity.this, NewPatientActivity.class);
                     startActivity(newIntent);

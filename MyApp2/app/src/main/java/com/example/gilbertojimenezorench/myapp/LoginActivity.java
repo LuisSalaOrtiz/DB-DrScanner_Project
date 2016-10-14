@@ -124,6 +124,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 Toast.makeText(this, "You have logged out.", Toast.LENGTH_LONG).show();
+                this.recreate();
 
             }
             if (resultCode == Activity.RESULT_CANCELED) {
@@ -132,8 +133,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
         if (requestCode == 2) {
             if(resultCode == Activity.RESULT_OK){
-                Toast.makeText(this, "You are now registered. Please log in.", Toast.LENGTH_LONG).show();
+//                Toast.makeText(this, "You are now registered. Please log in.", Toast.LENGTH_LONG).show();
                 list.add(data.getStringExtra("email"));
+                this.recreate();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //Write your code if there's no result
@@ -444,7 +446,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: attempt authentication against a network service.
 
             mAuthTask = null;
-            showProgress(false);
+            //showProgress(false);
 
 //            try {
 //                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -494,12 +496,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 {
                     Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
                     intent.putExtra("user", "Welcome, Gilberto");
+                    Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
                     startActivityForResult(intent, 1);
                 }
                 else if(list.contains(mEmail)&mPassword.equals("12345678"))
                 {
                     Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
                     intent.putExtra("user", "Welcome");
+                    Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
                     startActivityForResult(intent, 1);
                 }
                 else if((mEmail.equals("gilberto.jimenez@upr.edu")||mEmail.equals("gilberto.jimenez@upr.edu")||list.contains(mEmail))&!mPassword.equals("12345678"))

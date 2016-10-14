@@ -10,6 +10,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.EditText;
+import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class NewPatientActivity extends AppCompatActivity {
@@ -65,10 +67,20 @@ public class NewPatientActivity extends AppCompatActivity {
                 String heighttxt = height.getText().toString();
                 String cardNumbertxt = cardNumber.getText().toString();
 
-                String selectedRadioValue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
-
 
                 Intent myIntent = new Intent(NewPatientActivity.this,DoctorPatientFileActivity.class);
+
+//                if(rg!=null)
+//                {
+//                    String selectedRadioValue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
+//                    myIntent.putExtra("RADIO",selectedRadioValue);
+//                }
+//                else
+//                {
+//                    Toast.makeText(NewPatientActivity.this, "All information must be completed.", Toast.LENGTH_LONG).show();
+//                }
+
+
 
                 myIntent.putExtra("BLOOD",Blood);
                 myIntent.putExtra("MEDCOM",MedCompany);
@@ -85,9 +97,16 @@ public class NewPatientActivity extends AppCompatActivity {
                 myIntent.putExtra("HEIGHT",heighttxt);
                 myIntent.putExtra("CARDNUM",cardNumbertxt);
                 myIntent.putStringArrayListExtra("SELECT",selection);
-                myIntent.putExtra("RADIO",selectedRadioValue);
 
-                startActivity(myIntent);
+                try
+                {
+                    String selectedRadioValue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
+                    myIntent.putExtra("RADIO",selectedRadioValue);
+                    startActivity(myIntent);
+                } catch(NullPointerException e)
+                {
+                    Toast.makeText(NewPatientActivity.this, "All information must be completed.", Toast.LENGTH_LONG).show();
+                }
 
             }
         });
