@@ -103,7 +103,19 @@
                 android:popupBackground="@android:drawable/spinner_background"
                 android:layout_alignTop="@+id/expYearSpinner"
                 android:layout_alignParentStart="true"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                android:theme="?android:attr/dropDownSpinnerStyle" />
+
+            <Spinner
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinner"
+                android:entries="@array/country_selection"
+                android:layout_below="@+id/cityEditText"
+                android:layout_alignParentStart="true"
+                android:textColor="#FFFFFF"
+                android:background="#FFFFFF"
+                android:theme="?android:attr/dropDownSpinnerStyle" />
 
             <TextView
                 android:text=" Expiration Date"
@@ -125,7 +137,8 @@
                 android:layout_marginTop="11dp"
                 android:id="@+id/expYearSpinner"
                 android:layout_below="@+id/expDateTxtView"
-                android:layout_toEndOf="@+id/expMonthSpinner" />
+                android:layout_toEndOf="@+id/expMonthSpinner"
+                android:theme="?android:attr/dropDownSpinnerStyle" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -210,19 +223,23 @@
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/countrySpinner"
-                android:popupBackground="@android:drawable/spinner_background"
+                android:entries="@array/country_selection"
                 android:layout_below="@+id/cityEditText"
                 android:layout_alignParentStart="true"
-                android:textColor="#FFFFFF"/>
+                android:background="#FFFFFF"
+                android:theme="?android:attr/dropDownSpinnerStyle"
+                android:layout_marginBottom="5dp"/>
 
             <Spinner
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/stateSpinner"
-                android:popupBackground="@android:drawable/spinner_background"
+                android:entries="@array/state_selection"
                 android:layout_below="@+id/countrySpinner"
                 android:layout_alignEnd="@+id/countrySpinner"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                android:background="#FFFFFF"
+                android:theme="?android:attr/dropDownSpinnerStyle" />
 
             <EditText
                 android:layout_width="wrap_content"
