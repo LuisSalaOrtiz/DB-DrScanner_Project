@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_payment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.gilbertojimenezorench.myapp.PaymentActivity"
+    android:background="@drawable/back">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:fadeScrollbars="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="900dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="Personal Information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/personInfoTextView"
+                android:layout_alignParentStart="true"
+                android:textStyle="normal|bold"
+                android:textSize="25sp"
+                android:textColor="#FFFFFFFF" />
+
+            <TextView
+                android:text="Name: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullNameView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="3"
+                android:textColor="#FFFFFFFF"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/personInfoTextView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="3"
+                android:textSize="20sp"
+                android:id="@+id/fnameView"
+                android:hint="Name"
+                android:textColor="#FFFFFFFF"
+                android:layout_alignBaseline="@+id/fullNameView"
+                android:layout_alignBottom="@+id/fullNameView"
+                android:layout_toEndOf="@+id/fullNameView"  />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:id="@+id/lnameView"
+                android:hint="@string/lnametexthint"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"
+                android:layout_alignBaseline="@+id/fnameView"
+                android:layout_alignBottom="@+id/fnameView"
+                android:layout_toEndOf="@+id/fnameView" />
+
+
+
+            <TextView
+                android:text="Email: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullEmailView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="3"
+                android:textColor="#FFFFFFFF"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fullNameView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:id="@+id/remailView"
+                android:hint="@string/remailtext"
+                android:textSize="20sp"
+                android:layout_marginTop="18dp"
+                android:textColor="#FFFFFFFF"
+                android:layout_alignBaseline="@+id/fullEmailView"
+                android:layout_alignBottom="@+id/fullEmailView"
+                android:layout_toEndOf="@+id/fullEmailView" />
+
+
+            <TextView
+                android:text="Age: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullAgeView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="3"
+                android:textColor="#FFFFFFFF"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fullEmailView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="3"
+                android:id="@+id/ageView"
+                android:hint="Age"
+                android:layout_alignBaseline="@+id/fullAgeView"
+                android:layout_alignBottom="@+id/fullAgeView"
+                android:layout_toEndOf="@+id/fullAgeView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+            <TextView
+                android:text="Marital Status: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/maritalStatus"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="6"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fullAgeView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:id="@+id/maritalSelection"
+                android:hint="Selection"
+                android:layout_alignBaseline="@+id/maritalStatus"
+                android:layout_alignBottom="@+id/maritalStatus"
+                android:layout_toEndOf="@+id/maritalStatus"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+            <TextView
+                android:text="Gender: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/genderView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="3"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/maritalStatus" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:id="@+id/genderSelection"
+                android:hint="Selection"
+                android:layout_alignBaseline="@+id/genderView"
+                android:layout_alignBottom="@+id/genderView"
+                android:layout_toEndOf="@+id/genderView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+            <TextView
+                android:text="Phone Number: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullPhoneView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="6"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/genderView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/rcellView"
+                android:hint="Phone #"
+                android:layout_alignBaseline="@+id/fullPhoneView"
+                android:layout_alignBottom="@+id/fullPhoneView"
+                android:layout_toEndOf="@+id/fullPhoneView"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+
+            <TextView
+                android:text="Social Security: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullSocialView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="6"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fullPhoneView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/socialNumberView"
+                android:hint="Social Security"
+                android:layout_alignBaseline="@+id/fullSocialView"
+                android:layout_alignBottom="@+id/fullSocialView"
+                android:layout_toEndOf="@+id/fullSocialView"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+
+            <TextView
+                android:text="Address: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullAddressView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="4"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fullSocialView" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="12"
+                android:hint="Physical Address"
+                android:layout_alignBaseline="@+id/fullAddressView"
+                android:layout_alignBottom="@+id/fullAddressView"
+                android:layout_toEndOf="@+id/fullAddressView"
+                android:layout_marginTop="20dp"
+                android:id="@+id/physicalAddressView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+
+            <TextView
+                android:text="Postal Address: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullPostalView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="6"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fullAddressView" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Postal Add"
+                android:layout_alignBaseline="@+id/fullPostalView"
+                android:layout_alignBottom="@+id/fullPostalView"
+                android:layout_toEndOf="@+id/fullPostalView"
+                android:layout_marginTop="20dp"
+                android:id="@+id/postalAddressView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+            <TextView
+                android:text="Medical Information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/medicalInfoTextView"
+                android:layout_alignParentStart="true"
+                android:textStyle="normal|bold"
+                android:textSize="25sp"
+                android:textColor="#FFFFFFFF"
+                android:layout_below="@+id/postalAddressView"
+                android:layout_marginTop="20dp"/>
+
+            <TextView
+                android:text="Conditions Patient has or had previously: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/headerRecord"
+                android:fontFamily="sans-serif"
+                android:textSize="18dp"
+                android:ems="16"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/medicalInfoTextView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/recordSelection"
+                android:hint="Diseases"
+                android:layout_below="@+id/headerRecord"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="20dp"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+            <TextView
+                android:text="Weight: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullWeightView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="3"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/recordSelection" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:id="@+id/weightView"
+                android:layout_marginTop="20dp"
+                android:hint="Weight in lbs."
+                android:layout_alignBaseline="@+id/fullWeightView"
+                android:layout_alignBottom="@+id/fullWeightView"
+                android:layout_toEndOf="@+id/fullWeightView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+
+            <TextView
+                android:text="Height: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullHeightView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="3"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/fullWeightView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:id="@+id/heightView"
+                android:layout_marginTop="20dp"
+                android:hint="Height in ft."
+                android:layout_alignBaseline="@+id/fullHeightView"
+                android:layout_alignBottom="@+id/fullHeightView"
+                android:layout_toEndOf="@+id/fullHeightView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+            <TextView
+                android:text="Blood Type: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/bloodType"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="5"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/heightView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:id="@+id/bloodSelection"
+                android:hint="Selection"
+                android:layout_alignBaseline="@+id/bloodType"
+                android:layout_alignBottom="@+id/bloodType"
+                android:layout_toEndOf="@+id/bloodType"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+
+            <TextView
+                android:text="Medicare Information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/medicareInfoTextView"
+                android:layout_alignParentStart="true"
+                android:textStyle="normal|bold"
+                android:textSize="25sp"
+                android:textColor="#FFFFFFFF"
+                android:layout_below="@+id/bloodType"
+                android:layout_marginTop="20dp" />
+
+
+            <TextView
+                android:text="Medicare: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/medicareComView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="5"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/medicareInfoTextView"
+                android:textColor="#FFFFFFFF"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:id="@+id/medSelection"
+                android:hint="Selection"
+                android:layout_alignBaseline="@+id/medicareComView"
+                android:layout_alignBottom="@+id/medicareComView"
+                android:layout_toEndOf="@+id/medicareComView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+            <TextView
+                android:text="Card Number: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fullCardView"
+                android:fontFamily="sans-serif"
+                android:textSize="22dp"
+                android:ems="6"
+                android:textColor="#FFFFFFFF"
+                android:textAllCaps="false"
+                android:layout_marginTop="13dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/medicareComView" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:id="@+id/cardNumberMedView"
+                android:layout_marginTop="20dp"
+                android:hint="Card Number"
+                android:layout_alignBaseline="@+id/fullCardView"
+                android:layout_alignBottom="@+id/fullCardView"
+                android:layout_toEndOf="@+id/fullCardView"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"/>
+
+            <Button
+                android:text="Edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="146dp"
+                android:background="@color/black_overlay"
+                android:id="@+id/editBtn"
+                android:layout_alignEnd="@+id/medicareComView" />
+
+            <Button
+                android:text="Delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:background="#FFFF4640"
+                android:id="@+id/deleteBtn"
+                android:layout_alignEnd="@+id/medicalInfoTextView" />
+
+            <Button
+                android:text="Close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/doctorClosingBtn"
+                android:layout_toEndOf="@id/deleteBtn"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/editBtn"
+                android:layout_alignParentBottom="true" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

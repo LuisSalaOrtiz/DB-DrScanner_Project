@@ -64,7 +64,7 @@ public class GeneralUserActivity extends AppCompatActivity {
             }
             else
             {
-                Intent newScan = new Intent(this, NewScanActivity.class);
+                Intent newScan = new Intent(this, PatientFileActivity.class);
                 newScan.putExtra("CONTENTS", contents);
                 newScan.putExtra("FORMAT", format);
 

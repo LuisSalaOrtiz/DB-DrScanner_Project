@@ -42,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button newPatientBtn = (Button) findViewById(R.id.newPatientBtn);
+        newPatientBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                IntentIntegrator intent = new IntentIntegrator(MainActivity.this);
+                intent.addExtra("new", "new");
+                intent.initiateScan();
+            }
+        });
+
         Intent loginIntent = getIntent();
         TextView welcomeTxtView = (TextView) findViewById(R.id.welcomeTxtView);
         welcomeTxtView.setText(loginIntent.getStringExtra("user"));
@@ -69,11 +79,25 @@ public class MainActivity extends AppCompatActivity {
             }
             else
             {
-                Intent newScan = new Intent(this, NewScanActivity.class);
-                newScan.putExtra("CONTENTS", contents);
-                newScan.putExtra("FORMAT", format);
+//                Intent newScan = new Intent(this, NewScanActivity.class);
+//                newScan.putExtra("CONTENTS", contents);
+//                newScan.putExtra("FORMAT", format);
+//
+//                startActivity(newScan);
 
-                startActivity(newScan);
+                if(intent.getStringExtra("new")==null)
+                {
+                    Intent scan = new Intent(this, DoctorPatientFileActivity.class);
+                    scan.putExtra("CONTENTS", contents);
+                    scan.putExtra("FORMAT", format);
+
+                    startActivity(scan);
+                } else if(intent.getStringExtra("new").equals("new"))
+                {
+                    Intent newIntent = new Intent(MainActivity.this, NewPatientActivity.class);
+                    startActivity(newIntent);
+                }
+
             }
         }
         else{
