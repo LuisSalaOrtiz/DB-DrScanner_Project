@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+
+    <title>Db-DrScanner Project by LuisSalaOrtiz</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Db-DrScanner Project</h1>
+        <h2>By L.Sala, G.Jimenez, L.Gonzalez</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/LuisSalaOrtiz/DB-DrScanner_Project/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/LuisSalaOrtiz/DB-DrScanner_Project/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/LuisSalaOrtiz/DB-DrScanner_Project" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h3>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h3>
+
+<p>DrScanner is an application to manage patient’s medical files in a more efficient, organized way, while implementing a fast and simple process. All of the patient’s file will be assigned an unique QR Code. When the QR code is scanned, the application will look, inside a SQL server, for the patient’s file associated with said QR code. If the file does not exist, then new information could be entered to be assigned to the scanned QR Code. If it exists, then the user will have the option to look at the patient’s information and edit it. This app is meant to make the patient registration and the retrieval of the patient’s files easier for hospitals and medical offices in general. Since the world has become more “mobile” in the recent years with the boom of smartphones and tablets, it is fitting that DrScanner should be a mobile application, because of the simplicity these provide. The platform to be used for the creation of the application will be Android. Android is an open source operating system that is distributed on a variety of mobile systems which are accessible and affordable, making the implementation a breeze compared to other conventional technologies. Also, the fact that android runs on most of smartphones today would assure the product a bigger reach.</p>
+
+<h3>
+<a id="client-app-description" class="anchor" href="#client-app-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Client App Description</h3>
+
+<p>The client side will be based on Android, using native libraries for the user interface and Java Play for web services. There will be two types of users, the Patient/Nurse which can only view his own information, and the Doctor/Admin which will be able to add/view/edit the patients files. It will have a user-friendly interface, having a main screen with options to either scan a file or to access the files on the database. Once a QR Code is scanned, the application will communicate to the database on the background and if the file associated with the QR Code is empty or does not exist, the application will ask to inform the user and ask if a new file will be created or not. If the QR Code is already associated with a file with information, then the application will show the user the patient’s file and provide edit options.</p>
+
+<h3>
+<a id="server-side-description" class="anchor" href="#server-side-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Server Side Description</h3>
+
+<p>The server side will be based on PostgreSQL Database Server. The server will contain various tables to store different information. One table for each type of user will then give access to the respective tables containing the patient's information. However, a fee will be charged for the server and app maintenance. The fee will be charged when the administrator is registering, and the information will then be stored in another table.</p>
+
+<h3>
+<a id="division-of-labor" class="anchor" href="#division-of-labor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Division of Labor</h3>
+
+<p>Tasks are divided, but not limited to, the following:
+Gilberto Jimenez Orench- Android &amp; Server Developer 
+Luis Gonzalez Morell - Graphical Design and Database Logistics
+Luis A. Sala Ortiz - Android and SQL Developer</p>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
+
+<p>If you are having trouble with our project, feel free to contact us through <a href="mailto:luis.sala@upr.edu">luis.sala@upr.edu</a> or <a href="mailto:gilberto.jimenez@upr.edu">gilberto.jimenez@upr.edu</a>.</p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
