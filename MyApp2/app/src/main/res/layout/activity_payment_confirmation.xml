@@ -31,7 +31,7 @@
         android:layout_alignBaseline="@+id/cardTextView"
         android:layout_alignBottom="@+id/cardTextView"
         android:layout_alignEnd="@+id/authorizedTextView"
-        android:layout_toEndOf="@+id/cardTextView" />
+        android:layout_toEndOf="@+id/dateTextView" />
 
     <TextView
         android:text="Carlos Santiago"
@@ -42,17 +42,16 @@
         android:layout_alignBaseline="@+id/pnameTextView"
         android:layout_alignBottom="@+id/pnameTextView"
         android:layout_alignEnd="@+id/cardNumTextView"
-        android:layout_toEndOf="@+id/cardTextView" />
+        android:layout_toEndOf="@+id/dateTextView" />
 
     <TextView
-        android:text="TextView"
+        android:text="Card:"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
         android:id="@+id/cardTextView"
         android:textColor="#FFFFFF"
         android:textSize="18sp"
-        tools:text="Card:    "
         android:layout_below="@+id/authorizedTextView"
         android:layout_alignStart="@+id/authorizedTextView" />
 
