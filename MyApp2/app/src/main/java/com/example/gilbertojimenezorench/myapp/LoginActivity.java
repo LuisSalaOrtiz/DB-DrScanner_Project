@@ -5,27 +5,25 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.LoaderManager.LoaderCallbacks;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.CursorLoader;
 import android.content.Intent;
+import android.content.Loader;
 import android.content.pm.PackageManager;
-import android.os.StrictMode;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
-import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,8 +36,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,11 +77,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     private ArrayList<String> list;
 
+    public ClientController controller;
+    public Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.title_activity_login);
         setContentView(R.layout.activity_login);
+        controller = ClientController.getInstance();
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -115,6 +115,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mProgressView = findViewById(R.id.login_progress);
 
         list = new ArrayList<String>();
+        context = this;
     }
 
 
@@ -435,10 +436,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         private final String mEmail;
         private final String mPassword;
+        public ProgressDialog progress = null;
+        public User loginUser;
 
         UserLoginTask(String email, String password) {
             mEmail = email;
             mPassword = password;
+            progress = new ProgressDialog(context);
+        }
+
+        @Override
+        protected void onPreExecute()
+        {
+//            progress.setMessage("Login In");
+//            progress.show();
+            showProgress(true);
+            super.onPreExecute();
         }
 
         @Override
@@ -446,89 +459,101 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // TODO: attempt authentication against a network service.
 
             mAuthTask = null;
-            //showProgress(false);
 
-//            try {
-//                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//                StrictMode.setThreadPolicy(policy);
-//               finish();
-//            ResultSet rs = ClientController.select("postgres", "password0987", "SELECT * FROM USERS");
-//            boolean emailFound = false;
-
-//                while (rs.next() && !emailFound) {
-//                    String gotEmail = rs.getString("USERNAME");
-//                    String gotPass = rs.getString("PASS");
-//
-//                    if (gotEmail.equals(mEmail)) {
-//
-//                        emailFound = true;
-//
-//                        if (gotPass.equals(mPassword)) {
-//
-//                            Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
-//                            intent.putExtra("user", "Welcome, " + mEmail);
-//                            startActivityForResult(intent, 1);
-//
-//                        } else {
-//                            Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_LONG);
-//                        }
-//                    }
-//                }
-//                Toast.makeText(LoginActivity.this, "Email not registered", Toast.LENGTH_LONG);
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//                Toast.makeText(LoginActivity.this, "Email not registered", Toast.LENGTH_LONG);
-//            }
-//
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
 
+            loginUser = controller.callGetUserData("users/"+mEmail, "users", LoginActivity.this);
 
-                if(mEmail.equals("luis.sala@upr.edu")&mPassword.equals("12345678")) {
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("user", "Welcome, Dr. Sala");
-                    startActivityForResult(intent, 1);
+            (new Handler()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(loginUser.getEmail().equals(mEmail))
+                    {
+                        if(loginUser.getPassword().equals(mPassword))
+                        {
+                            if(loginUser.getType().equals("admin"))
+                            {
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                intent.putExtra("user", "Welcome");
+                                Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
+                                showProgress(false);
+                                startActivityForResult(intent, 1);
+                            }
+                            else
+                            {
+                                Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
+                                intent.putExtra("user", "Welcome");
+                                Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
+                                showProgress(false);
+                                startActivityForResult(intent, 1);
+                            }
+                        }
+                        else
+                        {
+                            showProgress(false);
+                            mPasswordView.setError(getString(R.string.error_incorrect_password));
+                            mPasswordView.requestFocus();
+                        }
+                    }
+                    else
+                    {
+                        Toast.makeText(LoginActivity.this, "User doesn't exist. Please Register.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                        showProgress(false);
+                        startActivityForResult(intent, 2);
+                    }
                 }
-                else if(mEmail.equals("gilberto.jimenez@upr.edu")&mPassword.equals("12345678"))
-                {
-                    Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
-                    intent.putExtra("user", "Welcome, Gilberto");
-                    Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
-                    startActivityForResult(intent, 1);
-                }
-                else if(list.contains(mEmail)&mPassword.equals("12345678"))
-                {
-                    Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
-                    intent.putExtra("user", "Welcome");
-                    Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
-                    startActivityForResult(intent, 1);
-                }
-                else if((mEmail.equals("gilberto.jimenez@upr.edu")||mEmail.equals("gilberto.jimenez@upr.edu")||list.contains(mEmail))&!mPassword.equals("12345678"))
-                {
-                    Toast.makeText(LoginActivity.this, "Wrong Password, please try again.", Toast.LENGTH_LONG).show();
-                }
-                else
-                {
-                    Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                    startActivityForResult(intent, 2);
-                }
-//            } else {
-//                mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                mPasswordView.requestFocus();
+            }, 3000);
+
+//            if(loginUser.getEmail().equals(mEmail))
+//            {
+//                if(loginUser.getPassword().equals(mPassword))
+//                {
+//                    if(loginUser.getType().equals("admin"))
+//                    {
+//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                        intent.putExtra("user", "Welcome");
+//                        Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
+//                        showProgress(false);
+//                        startActivityForResult(intent, 1);
+//                    }
+//                    else
+//                    {
+//                        Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
+//                        intent.putExtra("user", "Welcome");
+//                        Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
+//                        showProgress(false);
+//                        startActivityForResult(intent, 1);
+//                    }
+//                }
+//                else
+//                {
+//                    showProgress(false);
+//                    mPasswordView.setError(getString(R.string.error_incorrect_password));
+//                    mPasswordView.requestFocus();
+//                }
 //            }
-            }
-
-            @Override
-            protected void onCancelled() {
-                mAuthTask = null;
-                showProgress(false);
-            }
+//            else
+//            {
+//                Toast.makeText(LoginActivity.this, "User doesn't exist. Please Register.", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+//                showProgress(false);
+//                startActivityForResult(intent, 2);
+//            }
         }
 
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false);
         }
+    }
+
+}
 
 
 

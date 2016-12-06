@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_payment"
     android:layout_width="match_parent"
@@ -21,7 +22,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="1000dp"
+            android:minHeight="1600dp"
             android:orientation="vertical">
 
             <TextView
@@ -101,7 +102,7 @@
 
 
             <TextView
-                android:text="Age: "
+                android:text="Date of Birth:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fullAgeView"
@@ -111,19 +112,8 @@
                 android:textColor="#FFFFFFFF"
                 android:layout_marginTop="13dp"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/fullEmailView" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="3"
-                android:id="@+id/ageView"
-                android:hint="Age"
-                android:layout_alignBaseline="@+id/fullAgeView"
-                android:layout_alignBottom="@+id/fullAgeView"
-                android:layout_toEndOf="@+id/fullAgeView"
-                android:textSize="20sp"
-                android:textColor="#FFFFFFFF"/>
+                android:layout_below="@+id/fullEmailView"
+                android:layout_toStartOf="@+id/lnameView" />
 
             <TextView
                 android:text="Marital Status: "
@@ -496,6 +486,8 @@
                 android:layout_toEndOf="@id/editBtn"
                 android:layout_alignEnd="@+id/medSelection" />
 
+
+
             <Button
                 android:text="Close"
                 android:layout_width="wrap_content"
@@ -507,6 +499,31 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginEnd="5dp"
                 android:background="#FFFFFF" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="date"
+                android:ems="10"
+                android:id="@+id/birthDate"
+                android:hint="yyyy-mm-dd"
+                android:layout_alignBaseline="@+id/fullAgeView"
+                android:layout_alignBottom="@+id/fullAgeView"
+                android:layout_alignParentEnd="true" />
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:layout_below="@id/fullCardView"
+                android:layout_above="@id/editBtn"
+                android:layout_alignBottom="@id/editBtn"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="2dp" />
 
 
         </RelativeLayout>

@@ -16,32 +16,44 @@
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-feature android:name="android.hardware.screen.portrait" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/launcher"
         android:label="@string/app_name"
         android:logo="@drawable/launcher"
-        android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait">
 
-        <activity android:name=".OpeningActivity">
+        <activity android:name=".OpeningActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".PaymentActivity" />
-        <activity android:name=".GeneralUserActivity" />
-        <activity android:name=".PaymentConfirmationActivity" />
-        <activity android:name=".DoctorPatientFileActivity" />
-        <activity android:name=".NewPatientActivity"/>
-        <activity android:name=".PatientFileActivity"/>
+        <activity android:name=".LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".RegisterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PaymentActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".GeneralUserActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PaymentConfirmationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".DoctorPatientFileActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".NewPatientActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PatientFileActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
