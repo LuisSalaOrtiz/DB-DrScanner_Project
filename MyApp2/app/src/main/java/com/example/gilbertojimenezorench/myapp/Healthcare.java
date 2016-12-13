@@ -1,17 +1,18 @@
 package com.example.gilbertojimenezorench.myapp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by alber on 11/20/2016.
  */
 
-public class Healthcare {
+public class Healthcare implements Serializable {
 
     private String hcname, hcnum;
-    private Date hcexp;
+    private String hcexp;
 
-    public Healthcare(String hcname, String hcnum, Date hcexp) {
+    public Healthcare(String hcname, String hcnum, String hcexp) {
         this.hcname = hcname;
         this.hcnum = hcnum;
         this.hcexp = hcexp;
@@ -25,11 +26,11 @@ public class Healthcare {
         this.hcname = hcname;
     }
 
-    public Date getHcexp() {
+    public String getHcexp() {
         return hcexp;
     }
 
-    public void setHcexp(Date hcexp) {
+    public void setHcexp(String hcexp) {
         this.hcexp = hcexp;
     }
 

@@ -22,10 +22,10 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         email = ((EditText) findViewById(R.id.remailtxt)).getText().toString();
-        fname = ((EditText) findViewById(R.id.remailtxt)).getText().toString();
-        lname = ((EditText) findViewById(R.id.remailtxt)).getText().toString();
-        rpass = ((EditText) findViewById(R.id.remailtxt)).getText().toString();
-        rcell = ((EditText) findViewById(R.id.remailtxt)).getText().toString();
+        fname = ((EditText) findViewById(R.id.fnametxt)).getText().toString();
+        lname = ((EditText) findViewById(R.id.lnametxt)).getText().toString();
+        rpass = ((EditText) findViewById(R.id.rpasstxt)).getText().toString();
+        rcell = ((EditText) findViewById(R.id.rcelltext)).getText().toString();
 
 
         Button registerButton = (Button) findViewById(R.id.registerBtn);

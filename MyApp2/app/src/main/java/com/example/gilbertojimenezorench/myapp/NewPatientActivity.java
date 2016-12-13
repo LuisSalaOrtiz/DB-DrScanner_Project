@@ -35,7 +35,6 @@ public class NewPatientActivity extends AppCompatActivity {
         age = (EditText)findViewById(R.id.age);
         phoNumber= (EditText)findViewById(R.id.rcelltext);
         socNumber = (EditText)findViewById(R.id.socialNumber);
-        phyAddress = (EditText)findViewById(R.id.physicalAddress);
         posAddress = (EditText)findViewById(R.id.postalAddress);
         weight = (EditText)findViewById(R.id.weight);
         height = (EditText)findViewById(R.id.height);

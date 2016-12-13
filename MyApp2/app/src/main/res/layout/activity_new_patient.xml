@@ -182,33 +182,6 @@
                 android:textColorHint="#FFFFFFFF"
                 android:textColor="#FFFFFFFF"/>
 
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:ems="12"
-                android:hint="Physical Address"
-                android:layout_below="@+id/socialNumber"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp"
-                android:id="@+id/physicalAddress"
-                android:textColorHint="#FFFFFFFF"
-                android:textColor="#FFFFFFFF"/>
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="textPostalAddress"
-                android:ems="12"
-                android:hint="Postal Address"
-                android:layout_below="@+id/physicalAddress"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="20dp"
-                android:id="@+id/postalAddress"
-                android:textColorHint="#FFFFFFFF"
-                android:textColor="#FFFFFFFF"/>
-
             <TextView
                 android:text="Medical Information"
                 android:layout_width="wrap_content"
@@ -488,6 +461,19 @@
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="20dp"
                 android:layout_below="@+id/cardNumberMed"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="textPostalAddress"
+                android:ems="12"
+                android:hint="Postal Address"
+                android:layout_marginTop="13dp"
+                android:id="@+id/postalAddress"
+                android:textColorHint="#FFFFFFFF"
+                android:textColor="#FFFFFFFF"
+                android:layout_below="@+id/socialNumber"
+                android:layout_alignParentStart="true" />
 
 
         </RelativeLayout>

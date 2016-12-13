@@ -1,19 +1,22 @@
 package com.example.gilbertojimenezorench.myapp;
 
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  * Created by alber on 11/20/2016.
  */
 
-public class PersonalInfo {
+public class PersonalInfo implements Serializable{
 
-    int age;
+    String age;
     String email,mstatus, gender, phone, weight, height, blood;
     Address address;
     Healthcare health;
 
 
 
-    public PersonalInfo(int age, String email, String mstatus, String gender, String phone, String weight, String height, String blood, Address address, Healthcare health) {
+    public PersonalInfo(String age, String email, String mstatus, String gender, String phone, String weight, String height, String blood, Address address, Healthcare health) {
 
         this.age = age;
         this.email = email;
@@ -28,11 +31,11 @@ public class PersonalInfo {
 
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -92,11 +95,11 @@ public class PersonalInfo {
         this.blood = blood;
     }
 
-    public Address getAddress() {
+    public Address getAddressInfo() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddressInfo(Address address) {
         this.address = address;
     }
 

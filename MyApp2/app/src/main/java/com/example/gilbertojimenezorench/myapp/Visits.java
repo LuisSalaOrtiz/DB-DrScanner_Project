@@ -1,26 +1,40 @@
 package com.example.gilbertojimenezorench.myapp;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by alber on 11/20/2016.
  */
 
-public class Visits {
+public class Visits implements Serializable {
 
-    private Date vdate;
+    private int vid;
+    private String vdate;
     private Doctor doctor;
+    private Diagnostics diagnostic;
 
-    public Visits(Date vdate, Doctor doctor) {
+
+    public Visits(int vid, String vdate, Doctor doctor, Diagnostics diagnostic) {
+        this.vid=vid;
         this.vdate = vdate;
         this.doctor = doctor;
+        this.diagnostic = diagnostic;
     }
 
-    public Date getVdate() {
+    public int getVid() {
+        return vid;
+    }
+
+    public void setVid(int vid) {
+        this.vid = vid;
+    }
+
+    public String getVdate() {
         return vdate;
     }
 
-    public void setVdate(Date vdate) {
+    public void setVdate(String vdate) {
         this.vdate = vdate;
     }
 
@@ -30,5 +44,13 @@ public class Visits {
 
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
+    }
+
+    public Diagnostics getDiagnostic() {
+        return diagnostic;
+    }
+
+    public void setDiagnostic(Diagnostics diagnostic) {
+        this.diagnostic = diagnostic;
     }
 }

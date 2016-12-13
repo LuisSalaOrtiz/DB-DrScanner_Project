@@ -1,34 +1,35 @@
 package com.example.gilbertojimenezorench.myapp;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by alber on 11/20/2016.
  */
 
-public class Patients {
+public class Patients implements Serializable {
     private int pid;
-    private String ssn, pname;
-    private Diagnostics conditions;
+    private String ssn, pfname, plname;
     private PersonalInfo info;
     private ArrayList<Visits> visits;
     private String qrcode;
+    private static final long serialVersionUID = -7060210544600464481L;
 
     /**
      * @param qrcode
      * @param pid
-     * @param pname
+     * @param pfname
+     * @param plname
      * @param ssn
-     * @param conditions
      * @param info
      * @param visits
      */
-    public Patients(String qrcode, int pid, String pname, String ssn, Diagnostics conditions, PersonalInfo info, ArrayList<Visits> visits)
+    public Patients(String qrcode, int pid, String pfname, String plname, String ssn, PersonalInfo info, ArrayList<Visits> visits)
     {
         this.pid = pid;
-        this.pname = pname;
+        this.pfname = pfname;
+        this.plname = plname;
         this.ssn = ssn;
-        this.conditions = conditions;
         this.visits = visits;
         this.qrcode = qrcode;
         this.info = info;
@@ -80,29 +81,29 @@ public class Patients {
     /**
      * @return
      */
-    public String getPname() {
-        return pname;
+    public String getPfname() {
+        return pfname;
     }
 
     /**
-     * @param pname
+     * @param pfname
      */
-    public void setPname(String pname) {
-        this.pname = pname;
+    public void setPfname(String pfname) {
+        this.pfname = pfname;
     }
 
     /**
      * @return
      */
-    public Diagnostics getConditions() {
-        return conditions;
+    public String getPlname() {
+        return plname;
     }
 
     /**
-     * @param conditions
+     * @param plname
      */
-    public void setConditions( Diagnostics conditions) {
-        this.conditions = conditions;
+    public void setPlname(String plname) {
+        this.plname = plname;
     }
 
     /**
@@ -131,5 +132,12 @@ public class Patients {
      */
     public void setVisits(ArrayList<Visits> visits) {
         this.visits = visits;
+    }
+
+    /**
+     * @param visit
+     */
+    public void addVisits(Visits visit) {
+        this.visits.add(visit);
     }
 }

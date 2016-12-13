@@ -15,14 +15,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fadeScrollbars="true"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:fadeScrollbars="true">
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="1600dp"
+            android:minHeight="1200dp"
             android:orientation="vertical">
 
             <TextView
@@ -87,19 +87,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/fullNameView" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="6"
-                android:id="@+id/remailView"
-                android:hint="@string/remailtext"
-                android:textSize="20sp"
-                android:layout_marginTop="18dp"
-                android:textColor="#FFFFFFFF"
-                android:layout_alignBaseline="@+id/fullEmailView"
-                android:layout_alignBottom="@+id/fullEmailView"
-                android:layout_toEndOf="@+id/fullEmailView" />
-
 
             <TextView
                 android:text="Date of Birth:"
@@ -154,18 +141,6 @@
                 android:layout_marginTop="13dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/maritalStatus" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="4"
-                android:id="@+id/genderSelection"
-                android:hint="Selection"
-                android:layout_alignBaseline="@+id/genderView"
-                android:layout_alignBottom="@+id/genderView"
-                android:layout_toEndOf="@+id/genderView"
-                android:textSize="20sp"
-                android:textColor="#FFFFFFFF"/>
 
             <TextView
                 android:text="Phone Number: "
@@ -224,35 +199,6 @@
 
 
             <TextView
-                android:text="Address: "
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fullAddressView"
-                android:fontFamily="sans-serif"
-                android:textSize="22dp"
-                android:ems="4"
-                android:textColor="#FFFFFFFF"
-                android:textAllCaps="false"
-                android:layout_marginTop="13dp"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/fullSocialView" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="12"
-                android:hint="Physical Address"
-                android:layout_alignBaseline="@+id/fullAddressView"
-                android:layout_alignBottom="@+id/fullAddressView"
-                android:layout_toEndOf="@+id/fullAddressView"
-                android:layout_marginTop="20dp"
-                android:id="@+id/physicalAddressView"
-                android:textSize="20sp"
-                android:textColor="#FFFFFFFF"/>
-
-
-            <TextView
                 android:text="Postal Address: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -264,7 +210,7 @@
                 android:textAllCaps="false"
                 android:layout_marginTop="13dp"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/fullAddressView" />
+                android:layout_below="@+id/fullSocialView" />
 
 
             <TextView
@@ -315,7 +261,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginTop="20dp"
                 android:textSize="20sp"
-                android:textColor="#FFFFFFFF"/>
+                android:textColor="#FFFFFF"/>
 
             <TextView
                 android:text="Weight: "
@@ -500,30 +446,62 @@
                 android:layout_marginEnd="5dp"
                 android:background="#FFFFFF" />
 
-            <EditText
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="date"
+                android:inputType="text"
                 android:ems="10"
                 android:id="@+id/birthDate"
                 android:hint="yyyy-mm-dd"
+                android:clickable="false"
+                android:editable="false"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:textIsSelectable="false"
                 android:layout_alignBaseline="@+id/fullAgeView"
                 android:layout_alignBottom="@+id/fullAgeView"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_toEndOf="@+id/maritalStatus"
+                android:textSize="18sp"
+                android:textColor="#FFFFFF" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="6"
+                android:id="@+id/remailView"
+                android:hint="@string/remailtext"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"
+                android:layout_alignBaseline="@+id/fullEmailView"
+                android:layout_alignBottom="@+id/fullEmailView"
+                android:layout_alignEnd="@+id/doctorClosingBtn"
+                android:layout_toEndOf="@+id/fullEmailView" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                android:layout_below="@id/fullCardView"
-                android:layout_above="@id/editBtn"
-                android:layout_alignBottom="@id/editBtn"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingTop="2dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:id="@+id/genderSelection"
+                android:hint="Selection"
+                android:textSize="20sp"
+                android:textColor="#FFFFFFFF"
+                android:layout_above="@+id/fullPhoneView"
+                android:layout_alignEnd="@+id/weightView" />
+
+            <!--
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:clipToPadding="false"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                            android:layout_below="@id/fullCardView"
+                            android:layout_above="@id/editBtn"
+                            android:layout_alignBottom="@id/editBtn"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:paddingTop="2dp" />-->
 
 
         </RelativeLayout>
