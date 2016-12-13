@@ -36,6 +36,7 @@ public class ClientController {
     private Visits visit;
     private Conditions conditions;
     private Diagnostics diagnostic;
+    private boolean postState=false;
 
     private static ClientController instance = null;
 
@@ -130,6 +131,39 @@ public class ClientController {
     }
 
     /**
+     * @param givenUrl
+     * @param givenRequest
+     * @param context
+     * @return
+     */
+    public boolean callPostData(String givenUrl, String givenRequest, Context context)
+    {
+        this.context = context;
+        String link = "https://morning-caverns-51343.herokuapp.com/" + givenUrl;
+        try {
+            url = new URL(link);
+        } catch (MalformedURLException e) {
+            //Toast.makeText(context, "Connection Failed. Please Try again later.", Toast.LENGTH_LONG).show();
+            new AlertDialog.Builder(context)
+                    .setTitle("Connection Error!")
+                    .setMessage("Connection Failed. Please Try again later.")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                            return;
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            e.printStackTrace();
+        }
+
+        new postdata().execute();
+
+        return postState;
+    }
+
+    /**
      * Inner class used to retrieve Information
      */
     public class getdata extends AsyncTask<Void, Integer, String> {
@@ -188,13 +222,6 @@ public class ClientController {
                         if (request.equals("patients")) {
                             jsonArray = new JSONArray(res);
                             originalObj = new JSONObject(jsonArray.get(0).toString());
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-
-                                originalObj = new JSONObject(jsonArray.get(i).toString());
-                                System.out.println(originalObj + "             YAAAAAAAAAAAAAAAAYYYYYYYYYYYYYY");
-                                System.out.println(originalObj + "             YAAAAAAAAAAAAAAAAYYYYYYYYYYYYYY");
-                            }
 
 
                             //Patient regular parameters
@@ -310,6 +337,66 @@ public class ClientController {
                                     //Toast.makeText(ClientController.this, "Yaay", Toast.LENGTH_SHORT).show();
                                 }})
                             .setNegativeButton(android.R.string.no, null).show();
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                connection.disconnect();
+                System.out.println("disconnected");
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+        }
+
+    }
+
+    /**
+     * Inner class used to retrieve Information
+     */
+    public class postdata extends AsyncTask<Void, Integer, String> {
+
+
+        @Override
+        protected String doInBackground(Void... params) {
+            String result = "";
+            System.out.println("Do background");
+            HttpURLConnection connection = null;
+            int statusCode = 0;
+
+            try {
+
+                connection = (HttpURLConnection) url.openConnection();
+
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestMethod("POST");
+
+                statusCode = connection.getResponseCode();
+                System.out.println("Async call code: " + connection.getResponseCode());
+
+                if (statusCode == 200) {
+                    System.out.println("Server responded with code: " + statusCode);
+
+                    postState = true;
+
+                } else {
+                    System.out.println("error");
+                    new AlertDialog.Builder(context)
+                            .setMessage("Internet connection is not available. Try again later.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+
+                                }})
+                            .setNegativeButton(android.R.string.no, null).show();
+                    postState=false;
                 }
 
             } catch (Exception e) {

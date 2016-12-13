@@ -91,9 +91,10 @@
         android:baselineAligned="false"
         android:clickable="false"
         android:orientation="horizontal"
-        android:layout_alignEnd="@+id/fnametxt"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:weightSum="1">
 
         <RadioButton
             android:text="Admin"
@@ -104,10 +105,11 @@
             android:textColor="#FFFFFF"/>
 
         <RadioButton
-            android:text="Nurse"
+            android:text="General"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/nurseRadioBtn"
+            android:width="100dp"
             android:textColor="#FFFFFF" />
 
 
