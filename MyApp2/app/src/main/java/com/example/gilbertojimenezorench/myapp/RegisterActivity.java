@@ -13,6 +13,9 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static android.R.attr.button;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -22,12 +25,15 @@ public class RegisterActivity extends AppCompatActivity {
     public Context context;
     private RadioButton radio1, radio2;
     public ProgressDialog progress = null;
+    JSONObject params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle("Please Register");
         setContentView(R.layout.activity_register);
+
+        params = new JSONObject();
 
         controller = ClientController.getInstance();
         context = RegisterActivity.this;
@@ -50,6 +56,15 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                email = ((EditText) findViewById(R.id.remailtxt)).getText().toString();
+                fname = ((EditText) findViewById(R.id.fnametxt)).getText().toString();
+                lname = ((EditText) findViewById(R.id.lnametxt)).getText().toString();
+                rpass = ((EditText) findViewById(R.id.rpasstxt)).getText().toString();
+                rcell = ((EditText) findViewById(R.id.rcelltext)).getText().toString();
+                radio1 = (RadioButton) findViewById(R.id.adminRadioBtn);
+                radio2 = (RadioButton) findViewById(R.id.nurseRadioBtn);
+                type="general";
 
                 if (email == null) {
                     Toast.makeText(RegisterActivity.this, "All information has to be completed.", Toast.LENGTH_LONG).show();
@@ -77,7 +92,15 @@ public class RegisterActivity extends AppCompatActivity {
                         type="general";
                     }
 
-                    controller.callPostData("post/user/"+rpass+"/"+type+"/"+email, "user", context);
+                    try {
+                        params.put("password",rpass);
+                        params.put("type",type);
+                        params.put("email",email);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    controller.callPostData("post/user/", params, context);
                     progress.show();
 
                     (new Handler()).postDelayed(new Runnable() {

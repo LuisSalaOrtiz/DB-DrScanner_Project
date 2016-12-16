@@ -507,7 +507,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         startActivityForResult(intent, 2);
                     }
                 }
-            }, 3000);
+            }, 5000);
 
 //            if(loginUser.getEmail().equals(mEmail))
 //            {

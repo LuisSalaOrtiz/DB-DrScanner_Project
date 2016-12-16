@@ -4,17 +4,26 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -94,7 +103,6 @@ public class ClientController {
         new getdata().execute();
 
         //https://morning-caverns-51343.herokuapp.com/
-        System.out.println(patient.getPfname() + "AAAAAAAAAQQQQUUUUUIIIIIIIIIIIIIIIIIIIIIIIIII\n\n\n\n");
         return patient;
     }
 
@@ -132,11 +140,11 @@ public class ClientController {
 
     /**
      * @param givenUrl
-     * @param givenRequest
+     * @param jsonObject
      * @param context
      * @return
      */
-    public boolean callPostData(String givenUrl, String givenRequest, Context context)
+    public boolean callPostData(String givenUrl, JSONObject jsonObject, Context context)
     {
         this.context = context;
         String link = "https://morning-caverns-51343.herokuapp.com/" + givenUrl;
@@ -158,7 +166,7 @@ public class ClientController {
             e.printStackTrace();
         }
 
-        new postdata().execute();
+        new postdata(jsonObject).execute();
 
         return postState;
     }
@@ -362,48 +370,118 @@ public class ClientController {
      */
     public class postdata extends AsyncTask<Void, Integer, String> {
 
+        JSONObject postjsonObject;
+
+        public postdata(JSONObject postingJObj)
+        {
+            postjsonObject = postingJObj;
+        }
+
 
         @Override
         protected String doInBackground(Void... params) {
             String result = "";
             System.out.println("Do background");
             HttpURLConnection connection = null;
+            DataOutputStream printout;
+            DataInputStream input;
+            StringBuilder sb = new StringBuilder();
             int statusCode = 0;
+//
+//            try {
+//
+//                connection = (HttpURLConnection) url.openConnection();
+//
+//                connection.setRequestProperty("Content-Type", "application/json");
+//                connection.setRequestProperty("Accept", "application/json");
+//                connection.setRequestMethod("POST");
+//                connection.setDoInput(true);
+//                connection.setDoOutput(true);
+//                // is output buffer writter
+//                //set headers and method
+//                Writer writer = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream(), "UTF-8"));
+//                writer.write(postjsonObject.toString());
+//                // json data
+//                writer.close();
+//
+//                statusCode = connection.getResponseCode();
+//                System.out.println("Async call code: " + connection.getResponseCode());
+//
+//                if (statusCode == 200) {
+//                    System.out.println("Server responded with code: " + statusCode);
+//
+//                    postState = true;
+//
+//                } else {
+//                    System.out.println("error");
+//                    new AlertDialog.Builder(context)
+//                            .setMessage("Internet connection is not available. Try again later.")
+//                            .setIcon(android.R.drawable.ic_dialog_alert)
+//                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//
+//                                public void onClick(DialogInterface dialog, int whichButton) {
+//
+//                                }})
+//                            .setNegativeButton(android.R.string.no, null).show();
+//                    postState=false;
+//                }
+//
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            } finally {
+//                connection.disconnect();
+//                System.out.println("disconnected");
+//            }
+
 
             try {
 
                 connection = (HttpURLConnection) url.openConnection();
-
-                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setDoInput (true);
+                connection.setDoOutput (true);
+                connection.setUseCaches (false);
+                connection.setRequestProperty("Content-Type","application/json");
                 connection.setRequestMethod("POST");
+                connection.setConnectTimeout(10000);
+                connection.setReadTimeout(10000);
+                connection.setRequestProperty("Host", "https://morning-caverns-51343.herokuapp.com/");
+                connection.connect();
 
-                statusCode = connection.getResponseCode();
-                System.out.println("Async call code: " + connection.getResponseCode());
+                //Post JSON JSONObject here
+//                OutputStreamWriter out = new   OutputStreamWriter(connection.getOutputStream());
+//                out.write(postjsonObject.toString());
+//                out.close();
 
-                if (statusCode == 200) {
-                    System.out.println("Server responded with code: " + statusCode);
+                printout = new DataOutputStream(connection.getOutputStream ());
+                printout.writeBytes(URLEncoder.encode(postjsonObject.toString(),"UTF-8"));
+                printout.flush ();
+                printout.close ();
 
-                    postState = true;
+                int HttpResult =connection.getResponseCode();
+                if(HttpResult ==HttpURLConnection.HTTP_OK){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(
+                            connection.getInputStream(),"utf-8"));
+                    String line = null;
+                    while ((line = br.readLine()) != null) {
+                        sb.append(line + "\n");
+                    }
+                    br.close();
 
-                } else {
-                    System.out.println("error");
-                    new AlertDialog.Builder(context)
-                            .setMessage("Internet connection is not available. Try again later.")
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    System.out.println(""+sb.toString());
 
-                                public void onClick(DialogInterface dialog, int whichButton) {
-
-                                }})
-                            .setNegativeButton(android.R.string.no, null).show();
-                    postState=false;
+                }else{
+                    System.out.println(connection.getResponseMessage());
                 }
+            } catch (MalformedURLException e) {
 
-            } catch (Exception e) {
-                System.out.println(e);
-            } finally {
-                connection.disconnect();
-                System.out.println("disconnected");
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+
+                e.printStackTrace();
+            } finally{
+                if(connection!=null)
+                    connection.disconnect();
             }
 
             return result;
