@@ -114,10 +114,10 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }, 5000);
-                for(int i = 0; i<10;i++) {
-                    if(patient != null)
-                        System.out.println(patient.getPfname());
-                }
+//                for(int i = 0; i<10;i++) {
+//                    if(patient != null)
+//                        System.out.println(patient.getPfname());
+//                }
 
             }
         }

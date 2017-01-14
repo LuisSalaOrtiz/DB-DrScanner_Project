@@ -1,7 +1,10 @@
 package com.example.gilbertojimenezorench.myapp;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -12,16 +15,28 @@ import android.widget.Spinner;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class NewPatientActivity extends AppCompatActivity {
 
     private Spinner spinnerMarital, spinnerBlood, spinnerMedicare;
     private Button submit;
     private EditText name,lastName,email,age,phoNumber,phyAddress,posAddress,socNumber,weight,height,cardNumber;
-    private String Marital, Blood , MedCompany;
-    private RadioGroup rg;
+    private String Marital, Blood , MedCompany, gender, qrcode;
+    private RadioButton radio1, radio2;
     ArrayList<String> selection= new ArrayList<String>();
+    public ProgressDialog progress = null;
+    private JSONObject params;
+    private JSONObject idsObject;
+    public Intent myIntent;
+    public ClientController controller;
+    public Context context;
+    public int pid,aid,hcid,vid,diagid;
+
 
 
     @Override
@@ -39,21 +54,30 @@ public class NewPatientActivity extends AppCompatActivity {
         weight = (EditText)findViewById(R.id.weight);
         height = (EditText)findViewById(R.id.height);
         cardNumber = (EditText)findViewById(R.id.cardNumberMed);
-
-        rg = (RadioGroup) findViewById(R.id.radioGroup);
-
-
+        radio1 = (RadioButton) findViewById(R.id.maleRadioBtn);
+        radio2 = (RadioButton) findViewById(R.id.femaleRadioBtn);
 
         addListenerOnSpinnerItemSelection1();
         addListenerOnSpinnerItemSelection2();
         addListenerOnSpinnerItemSelection3();
 
+        controller = ClientController.getInstance();
+        context = NewPatientActivity.this;
+        params = new JSONObject();
+        idsObject = new JSONObject();
+
+        progress = new ProgressDialog(context);
+        progress.setMessage("Posting Patient...");
+        progress.setMax(100);
+        progress.setProgress(0);
 
 
         submit = (Button) findViewById(R.id.submitBtn);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                qrcode = getIntent().getStringExtra("qrcode");
                 String nametxt = name.getText().toString();
                 String lastNametxt = lastName.getText().toString();
                 String emailtxt = email.getText().toString();
@@ -66,19 +90,17 @@ public class NewPatientActivity extends AppCompatActivity {
                 String heighttxt = height.getText().toString();
                 String cardNumbertxt = cardNumber.getText().toString();
 
+                if(radio1.isSelected())
+                {
+                    gender="male";
+                }
+                else if(radio2.isSelected())
+                {
+                    gender="female";
+                }
 
-                Intent myIntent = new Intent(NewPatientActivity.this,DoctorPatientFileActivity.class);
 
-//                if(rg!=null)
-//                {
-//                    String selectedRadioValue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
-//                    myIntent.putExtra("RADIO",selectedRadioValue);
-//                }
-//                else
-//                {
-//                    Toast.makeText(NewPatientActivity.this, "All information must be completed.", Toast.LENGTH_LONG).show();
-//                }
-
+                myIntent = new Intent(NewPatientActivity.this,DoctorPatientFileActivity.class);
 
 
                 myIntent.putExtra("BLOOD",Blood);
@@ -97,16 +119,138 @@ public class NewPatientActivity extends AppCompatActivity {
                 myIntent.putExtra("CARDNUM",cardNumbertxt);
                 myIntent.putStringArrayListExtra("SELECT",selection);
 
+
+                progress.show();
+                //Starts posting the patient step by step
+
+                //Step 1: Post part 1
                 try
                 {
-                    String selectedRadioValue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
-                    myIntent.putExtra("RADIO",selectedRadioValue);
-                    startActivity(myIntent);
-                } catch(NullPointerException e)
-                {
-                    Toast.makeText(NewPatientActivity.this, "All information must be completed.", Toast.LENGTH_LONG).show();
+                    params.put("qrcode", qrcode);
+                    params.put("pfirst", nametxt);
+                    params.put("plast", lastNametxt);
+                    params.put("ssn", soctxt);
+                    params.put("address", postxt);
+                    params.put("hcname", MedCompany);
+                    params.put("hcnum", cardNumbertxt);
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                controller.callPostData("post/patient/part1/", params, context);
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.setProgress(25);
+                    }
+                }, 1000);
 
+                //Step 2: get pid, aid, hcid
+                idsObject = controller.callGetPatientData("patient/"+qrcode+"/"+postxt+"/"+cardNumbertxt, "3Ids", context);
+                try {
+                    pid = idsObject.getInt("pid");
+                    aid = idsObject.getInt("aid");
+                    hcid = idsObject.getInt("hcid");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                }, 2000);
+
+                //Step 3: Post part 2
+                params = new JSONObject();
+                try
+                {
+                    params.put("pid", pid);
+                    params.put("vdate", Calendar.DATE);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                controller.callPostData("post/patient/part2/", params, context);
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.setProgress(50);
+                    }
+                }, 1000);
+
+                //Step 4: get vid
+                idsObject = controller.callGetPatientData("patients/vid/"+qrcode, "vid", context);
+                try {
+                    vid = idsObject.getInt("vid");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                }, 2000);
+
+                //Step 5: Post part 3
+                params = new JSONObject();
+                try
+                {
+                    params.put("email", emailtxt);
+                    params.put("marital", Marital);
+                    params.put("gender", gender);
+                    params.put("phone", photxt);
+                    params.put("weight", weighttxt);
+                    params.put("height", heighttxt);
+                    params.put("blood", Blood);
+                    params.put("pid", pid);
+                    params.put("aid", aid);
+                    params.put("hcid", hcid);
+                    params.put("age", agetxt);
+                    params.put("vid", vid);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                controller.callPostData("post/patient/part3/", params, context);
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.setProgress(75);
+                    }
+                }, 1000);
+
+                //Step 6: get diagid
+                idsObject = controller.callGetPatientData("patient/"+qrcode+"/"+vid, "diagid", context);
+                try {
+                    diagid = idsObject.getInt("diagid");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                    }
+                }, 2000);
+
+                //Step 7: Post part 4
+                String temp;
+                for(int i=0; i<selection.size();i++) {
+                    params = new JSONObject();
+                    temp = selection.get(i).replace("- ", "");
+                    try {
+                        params.put("diagid", diagid);
+                        params.put("cname", temp);
+                        params.put("severity", "High");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    controller.callPostData("post/patient/part4/", params, context);
+                    (new Handler()).postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                        }
+                    }, 1000);
+                }
+                progress.setProgress(100);
+                progress.dismiss();
+                startActivity(myIntent);
             }
         });
 

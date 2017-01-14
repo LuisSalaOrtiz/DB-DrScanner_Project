@@ -30,11 +30,7 @@
         <activity android:name=".OpeningActivity"
             android:screenOrientation="portrait">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity android:name=".LoginActivity"
@@ -42,7 +38,8 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait"></activity>
         <activity android:name=".RegisterActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+            </activity>
         <activity android:name=".PaymentActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".GeneralUserActivity"
@@ -51,7 +48,15 @@
         <activity android:name=".PaymentConfirmationActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".DoctorPatientFileActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".NewPatientActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".PatientFileActivity"

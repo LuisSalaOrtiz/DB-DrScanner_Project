@@ -9,14 +9,14 @@ import java.util.Date;
 
 public class PersonalInfo implements Serializable{
 
-    String age;
+    int age;
     String email,mstatus, gender, phone, weight, height, blood;
     Address address;
     Healthcare health;
 
 
 
-    public PersonalInfo(String age, String email, String mstatus, String gender, String phone, String weight, String height, String blood, Address address, Healthcare health) {
+    public PersonalInfo(int age, String email, String mstatus, String gender, String phone, String weight, String height, String blood, Address address, Healthcare health) {
 
         this.age = age;
         this.email = email;
@@ -31,11 +31,11 @@ public class PersonalInfo implements Serializable{
 
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

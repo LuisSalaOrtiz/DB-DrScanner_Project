@@ -18,7 +18,7 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
     TextView nameView, lastNameView, emailView, birthView,phoneView,socialView
             ,postalView,weightView,heightView,cardNumberView
             ,maritalView,genderView,bloodView,companyView,diseaseView;
-    String birth;
+    int age;
     private String Marital, Blood , MedCompany;
     private RadioGroup rg;
     ArrayList<String> selection= new ArrayList<String>();
@@ -72,7 +72,7 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
         name = patient.getPfname();
         lastName = patient.getPlname();
         email = patient.getInfo().getEmail();
-        birth = patient.getInfo().getAge();
+        age = patient.getInfo().getAge();
         phone = patient.getInfo().getPhone();
         social = patient.getSsn();
         postal = patient.getInfo().getAddressInfo().getAddress();
@@ -84,7 +84,7 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
         nameView.setText(name);
         lastNameView.setText(lastName);
         emailView.setText(email);
-        birthView.setText(birth.toString());
+        birthView.setText(age);
         phoneView.setText(phone);
         socialView.setText(social);
         postalView.setText(postal);

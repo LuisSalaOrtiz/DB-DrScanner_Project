@@ -14,7 +14,7 @@ public class PatientFileActivity extends AppCompatActivity {
     TextView nameView, lastNameView, emailView, birthView,phoneView,socialView
             ,postalView,weightView,heightView,cardNumberView
             ,maritalView,genderView,bloodView,companyView,diseaseView;
-    String birth;
+    String age;
     private String Marital, Blood , MedCompany;
     private RadioGroup rg;
     ArrayList<String> selection= new ArrayList<String>();
@@ -56,7 +56,7 @@ public class PatientFileActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("NAME");
         lastName = getIntent().getStringExtra("LASTNAME");
         email = getIntent().getStringExtra("EMAIL");
-        //birth = getIntent().getStringExtra("AGE");
+        age = getIntent().getStringExtra("AGE");
         phone = getIntent().getStringExtra("PHONE");
         social = getIntent().getStringExtra("SOCIAL");
         postal = getIntent().getStringExtra("POSTAL");
@@ -68,7 +68,7 @@ public class PatientFileActivity extends AppCompatActivity {
         name = patient.getPfname();
         lastName = patient.getPlname();
         email = patient.getInfo().getEmail();
-        birth = patient.getInfo().getAge();
+        age = String.valueOf(patient.getInfo().getAge());
         phone = patient.getInfo().getPhone();
         social = patient.getSsn();
         postal = patient.getInfo().getAddressInfo().getAddress();
@@ -80,7 +80,7 @@ public class PatientFileActivity extends AppCompatActivity {
         nameView.setText(name);
         lastNameView.setText(lastName);
         emailView.setText(email);
-        birthView.setText(birth.toString());
+        birthView.setText(age);
         phoneView.setText(phone);
         socialView.setText(social);
         postalView.setText(postal);
