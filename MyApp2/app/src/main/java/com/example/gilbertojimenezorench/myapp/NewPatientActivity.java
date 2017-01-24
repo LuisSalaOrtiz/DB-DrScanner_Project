@@ -99,7 +99,6 @@ public class NewPatientActivity extends AppCompatActivity {
 
                 myIntent = new Intent(NewPatientActivity.this,DoctorPatientFileActivity.class);
 
-
                 myIntent.putExtra("BLOOD",Blood);
                 myIntent.putExtra("MEDCOM",MedCompany);
                 myIntent.putExtra("MARITAL",Marital);

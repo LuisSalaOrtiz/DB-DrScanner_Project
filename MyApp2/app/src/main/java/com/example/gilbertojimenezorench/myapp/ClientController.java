@@ -241,18 +241,6 @@ public class ClientController {
             case "post/patient/":
                 new postpatient(jsonObject, givenUrl).execute();
                 break;
-//            case "post/patient/part1/":
-//                new postpatient(jsonObject, givenUrl).execute();
-//                break;
-//            case "post/patient/part2/":
-//                new postpatient(jsonObject, givenUrl).execute();
-//                break;
-//            case "post/patient/part3/":
-//                new postpatient(jsonObject, givenUrl).execute();
-//                break;
-//            case "post/patient/part4/":
-//                new postpatient(jsonObject, givenUrl).execute();
-//                break;
             default:
                 break;
         }
@@ -600,10 +588,7 @@ public class ClientController {
             String result = "";
             System.out.println("Do background");
             HttpURLConnection conn = null;
-            DataOutputStream printout;
-            DataInputStream input;
-            int statusCode = 0;
-
+            int statusCode;
 
             try {
 
@@ -653,47 +638,6 @@ public class ClientController {
                             parameters.add(new Pair(condition, postjsonObject.get(condition)));
                         }
                         break;
-//                    // 5 params
-//                    case "post/patient/part1/":
-//                        parameters.add(new Pair("qrcode", postjsonObject.get("qrcode")));
-//                        parameters.add(new Pair("pfirst", postjsonObject.get("pfirst")));
-//                        parameters.add(new Pair("plast", postjsonObject.get("plast")));
-//                        parameters.add(new Pair("ssn", postjsonObject.get("ssn")));
-//                        parameters.add(new Pair("address", postjsonObject.get("address")));
-//                        parameters.add(new Pair("hcname", postjsonObject.get("hcname")));
-//                        parameters.add(new Pair("hcnum", postjsonObject.get("hcnum")));
-//                        break;
-//                    // 2 params
-//                    case "post/patient/part1.5/":
-//                        parameters.add(new Pair("hcname", postjsonObject.get("hcname")));
-//                        parameters.add(new Pair("hcnum", postjsonObject.get("hcnum")));
-//                        break;
-//                    // 2 params
-//                    case "post/patient/part2/":
-//                        parameters.add(new Pair("pid", postjsonObject.get("pid")));
-//                        parameters.add(new Pair("vdate", postjsonObject.get("vdate")));
-//                        break;
-//                    // 12 params
-//                    case "post/patient/part3/":
-//                        parameters.add(new Pair("email", postjsonObject.get("email")));
-//                        parameters.add(new Pair("marital", postjsonObject.get("marital")));
-//                        parameters.add(new Pair("gender", postjsonObject.get("gender")));
-//                        parameters.add(new Pair("phone", postjsonObject.get("phone")));
-//                        parameters.add(new Pair("weight", postjsonObject.get("weight")));
-//                        parameters.add(new Pair("height", postjsonObject.get("height")));
-//                        parameters.add(new Pair("blood", postjsonObject.get("blood")));
-//                        parameters.add(new Pair("pid", postjsonObject.get("pid")));
-//                        parameters.add(new Pair("aid", postjsonObject.get("aid")));
-//                        parameters.add(new Pair("hcid", postjsonObject.get("hcid")));
-//                        parameters.add(new Pair("age", postjsonObject.get("age")));
-//                        parameters.add(new Pair("vid", postjsonObject.get("vid")));
-//                        break;
-//                    // 3 params
-//                    case "post/patient/part4/":
-//                        parameters.add(new Pair("diagid", postjsonObject.get("diagid")));
-//                        parameters.add(new Pair("cname", postjsonObject.get("cname")));
-//                        parameters.add(new Pair("severity", postjsonObject.get("severity")));
-//                        break;
                     default:
                         break;
 
@@ -874,6 +818,189 @@ public class ClientController {
         protected void onPostExecute (String result){
             super.onPostExecute(result);
 
+        }
+
+    }
+
+    /**
+     * @param givenUrl
+     * @param jsonObject
+     * @param context
+     * @return
+     */
+    public boolean callUpdateData(String givenUrl, JSONObject jsonObject, Context context)
+    {
+        this.context = context;
+        String link = "https://morning-caverns-51343.herokuapp.com/" + givenUrl;
+        try {
+            url = new URL(link);
+        } catch (MalformedURLException e) {
+            //Toast.makeText(context, "Connection Failed. Please Try again later.", Toast.LENGTH_LONG).show();
+            new AlertDialog.Builder(context)
+                    .setTitle("Connection Error!")
+                    .setMessage("Connection Failed. Please Try again later.")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                            return;
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+            e.printStackTrace();
+        }
+
+        switch(givenUrl)
+        {
+            case "update/patient/":
+                new updatepatient(jsonObject, givenUrl).execute();
+                break;
+            default:
+                break;
+        }
+
+        return postState;
+    }
+
+    /**
+     * Inner class used to update patient
+     */
+    public class updatepatient extends AsyncTask<JSONObject, Integer, String> {
+
+        JSONObject postjsonObject;
+        String request;
+
+        public updatepatient(JSONObject postingJObj, String request)
+        {
+            postjsonObject = postingJObj;
+            this.request=request;
+
+        }
+
+
+        @Override
+        protected String doInBackground(JSONObject... params) {
+            String result = "";
+            System.out.println("Do background");
+            HttpURLConnection conn = null;
+            int statusCode;
+
+            try {
+
+                conn = (HttpsURLConnection) url.openConnection();
+                conn.setReadTimeout(10000);
+                conn.setConnectTimeout(15000);
+                conn.setRequestMethod("PUT");
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                List<Pair> parameters = new ArrayList<>();
+
+                switch(request)
+                {
+                    // 17 or more parameters
+                    case "update/patient/":
+                        parameters.add(new Pair("qrcode", postjsonObject.get("qrcode")));
+                        parameters.add(new Pair("pfirst", postjsonObject.get("pfirst")));
+                        parameters.add(new Pair("plast", postjsonObject.get("plast")));
+                        parameters.add(new Pair("ssn", postjsonObject.get("ssn")));
+                        parameters.add(new Pair("address", postjsonObject.get("address")));
+                        parameters.add(new Pair("hcname", postjsonObject.get("hcname")));
+                        parameters.add(new Pair("hcnum", postjsonObject.get("hcnum")));
+                        parameters.add(new Pair("email", postjsonObject.get("email")));
+                        parameters.add(new Pair("marital", postjsonObject.get("marital")));
+                        parameters.add(new Pair("gender", postjsonObject.get("gender")));
+                        parameters.add(new Pair("phone", postjsonObject.get("phone")));
+                        parameters.add(new Pair("weight", postjsonObject.get("weight")));
+                        parameters.add(new Pair("height", postjsonObject.get("height")));
+                        parameters.add(new Pair("blood", postjsonObject.get("blood")));
+                        parameters.add(new Pair("age", postjsonObject.get("age")));
+                        parameters.add(new Pair("number", postjsonObject.get("number")));
+
+                        for(int i=0; i < ((int) postjsonObject.get("number")) ;i++) {
+                            String condition="cname"+(i+1);
+                            System.out.println("-----------------------------------------------------------------------------");
+                            System.out.println(condition);
+                            System.out.println(condition);
+                            System.out.println(condition);
+                            System.out.println("-----------------------------------------------------------------------------");
+                            parameters.add(new Pair(condition, postjsonObject.get(condition)));
+                        }
+                        break;
+                    default:
+                        break;
+
+                }
+
+                OutputStream os = conn.getOutputStream();
+                BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+                writer.write(getQuery(parameters));
+                writer.flush();
+                writer.close();
+                os.close();
+
+                conn.connect();
+
+                statusCode = conn.getResponseCode();
+                System.out.println("Async call code: " + conn.getResponseCode());
+
+                if (statusCode == 200) {
+                    System.out.println("Server responded with code: " + statusCode);
+
+                    postState = true;
+
+                } else {
+                    System.out.println("error");
+                    new AlertDialog.Builder(context)
+                            .setMessage("Internet connection is not available. Try again later.")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+
+                                }})
+                            .setNegativeButton(android.R.string.no, null).show();
+                    postState=false;
+                }
+
+            } catch (Exception e) {
+                System.out.println(e);
+            } finally {
+                conn.disconnect();
+                System.out.println("disconnected");
+            }
+
+            return result;
+        }
+
+        private String getQuery(List<Pair> params) throws UnsupportedEncodingException
+        {
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+
+            for (Pair pair : params)
+            {
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+
+                result.append(URLEncoder.encode(pair.first.toString(), "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(pair.second.toString(), "UTF-8"));
+            }
+
+            return result.toString();
+        }
+
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+
+
+            // progressDialog.setCancelable(true);
+            //  }
         }
 
     }

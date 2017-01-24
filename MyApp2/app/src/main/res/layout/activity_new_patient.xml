@@ -364,7 +364,9 @@
                 android:hint="Weight in lbs."
                 android:layout_below="@+id/checkBox6"
                 android:textColorHint="#FFFFFFFF"
-                android:textColor="#FFFFFFFF"/>
+                android:textColor="#FFFFFFFF"
+                android:layout_alignEnd="@+id/bloodType"
+                android:layout_alignParentStart="true" />
 
             <EditText
                 android:layout_width="wrap_content"
@@ -373,10 +375,12 @@
                 android:ems="6"
                 android:id="@+id/height"
                 android:layout_marginTop="20dp"
-                android:hint="Height in ft."
+                android:hint="Height in inches."
                 android:layout_below="@+id/weight"
                 android:textColorHint="#FFFFFFFF"
-                android:textColor="#FFFFFFFF"/>
+                android:textColor="#FFFFFFFF"
+                android:layout_alignEnd="@+id/bloodType"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:text=" Blood Type:"

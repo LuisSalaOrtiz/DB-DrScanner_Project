@@ -97,9 +97,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        System.out.println(qrcode + "   No se porque no funciona");
-                        System.out.println(patient.getQrcode() + " El problema es aca entonces");
-
                         if(!patient.getQrcode().equals(qrcode)) {
                             Toast.makeText(MainActivity.this, "Patient file wasn't found, please add new patient.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, NewPatientActivity.class);

@@ -145,7 +145,7 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(DoctorPatientFileActivity.this, NewPatientActivity.class);
+                Intent myIntent = new Intent(DoctorPatientFileActivity.this, EditPatient.class);
                 String nametxt = nameView.getText().toString();
                 String lastNametxt = lastNameView.getText().toString();
                 String emailtxt = emailView.getText().toString();
@@ -156,14 +156,14 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
                 String weighttxt = weightView.getText().toString();
                 String heighttxt = heightView.getText().toString();
                 String cardNumbertxt = cardNumberView.getText().toString();
+                String gendertxt = genderView.getText().toString();
 
-//                String selectedRadioValue = ((RadioButton)findViewById(rg.getCheckedRadioButtonId())).getText().toString();
-
+                myIntent.putExtra("qrcode", qrcode);
                 myIntent.putExtra("BLOOD",Blood);
                 myIntent.putExtra("MEDCOM",MedCompany);
                 myIntent.putExtra("MARITAL",Marital);
-                myIntent.putExtra("NAME",nametxt);
-                myIntent.putExtra("LASTNAME",lastNametxt);
+                myIntent.putExtra("FNAME",nametxt);
+                myIntent.putExtra("LNAME",lastNametxt);
                 myIntent.putExtra("EMAIL",emailtxt);
                 myIntent.putExtra("AGE",agetxt);
                 myIntent.putExtra("PHONE",photxt);
@@ -172,8 +172,7 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
                 myIntent.putExtra("WEIGHT",weighttxt);
                 myIntent.putExtra("HEIGHT",heighttxt);
                 myIntent.putExtra("CARDNUM",cardNumbertxt);
-//                myIntent.putStringArrayListExtra("SELECT",selection);
-//                myIntent.putExtra("RADIO",selectedRadioValue);
+                myIntent.putExtra("GENDER",gendertxt);
 
                 startActivity(myIntent);
             }
