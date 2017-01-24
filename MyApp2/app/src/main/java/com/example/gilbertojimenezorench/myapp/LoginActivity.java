@@ -507,43 +507,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                         startActivityForResult(intent, 2);
                     }
                 }
-            }, 5000);
-
-//            if(loginUser.getEmail().equals(mEmail))
-//            {
-//                if(loginUser.getPassword().equals(mPassword))
-//                {
-//                    if(loginUser.getType().equals("admin"))
-//                    {
-//                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                        intent.putExtra("user", "Welcome");
-//                        Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
-//                        showProgress(false);
-//                        startActivityForResult(intent, 1);
-//                    }
-//                    else
-//                    {
-//                        Intent intent = new Intent(LoginActivity.this, GeneralUserActivity.class);
-//                        intent.putExtra("user", "Welcome");
-//                        Toast.makeText(LoginActivity.this, "You are logged in.", Toast.LENGTH_LONG).show();
-//                        showProgress(false);
-//                        startActivityForResult(intent, 1);
-//                    }
-//                }
-//                else
-//                {
-//                    showProgress(false);
-//                    mPasswordView.setError(getString(R.string.error_incorrect_password));
-//                    mPasswordView.requestFocus();
-//                }
-//            }
-//            else
-//            {
-//                Toast.makeText(LoginActivity.this, "User doesn't exist. Please Register.", Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-//                showProgress(false);
-//                startActivityForResult(intent, 2);
-//            }
+            }, 6000);
         }
 
         @Override

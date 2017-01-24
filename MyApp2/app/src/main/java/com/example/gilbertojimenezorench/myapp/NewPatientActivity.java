@@ -9,33 +9,30 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class NewPatientActivity extends AppCompatActivity {
 
     private Spinner spinnerMarital, spinnerBlood, spinnerMedicare;
     private Button submit;
-    private EditText name,lastName,email,age,phoNumber,phyAddress,posAddress,socNumber,weight,height,cardNumber;
+    private EditText name,lastName,email,age,phoNumber,posAddress,socNumber,weight,height,cardNumber;
     private String Marital, Blood , MedCompany, gender, qrcode;
-    private RadioButton radio1, radio2;
-    ArrayList<String> selection= new ArrayList<String>();
+    ArrayList<String> selection= new ArrayList<>();
     public ProgressDialog progress = null;
     private JSONObject params;
     private JSONObject idsObject;
     public Intent myIntent;
     public ClientController controller;
     public Context context;
-    public int pid,aid,hcid,vid,diagid;
+    public String pfirst, lastNametxt, emailtxt, agetxt, photxt, soctxt, postxt, weighttxt, heighttxt, cardNumbertxt, temp;
 
 
 
@@ -54,8 +51,7 @@ public class NewPatientActivity extends AppCompatActivity {
         weight = (EditText)findViewById(R.id.weight);
         height = (EditText)findViewById(R.id.height);
         cardNumber = (EditText)findViewById(R.id.cardNumberMed);
-        radio1 = (RadioButton) findViewById(R.id.maleRadioBtn);
-        radio2 = (RadioButton) findViewById(R.id.femaleRadioBtn);
+        gender="";
 
         addListenerOnSpinnerItemSelection1();
         addListenerOnSpinnerItemSelection2();
@@ -78,26 +74,27 @@ public class NewPatientActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 qrcode = getIntent().getStringExtra("qrcode");
-                String nametxt = name.getText().toString();
-                String lastNametxt = lastName.getText().toString();
-                String emailtxt = email.getText().toString();
-                String agetxt = age.getText().toString();
-                String photxt = phoNumber.getText().toString();
-                String soctxt = socNumber.getText().toString();
-                String phytxt = phyAddress.getText().toString();
-                String postxt = posAddress.getText().toString();
-                String weighttxt = weight.getText().toString();
-                String heighttxt = height.getText().toString();
-                String cardNumbertxt = cardNumber.getText().toString();
+                pfirst = name.getText().toString();
+                lastNametxt = lastName.getText().toString();
+                emailtxt = email.getText().toString();
+                agetxt = age.getText().toString();
+                photxt = phoNumber.getText().toString();
+                soctxt = socNumber.getText().toString();
+                postxt = posAddress.getText().toString();
+                weighttxt = weight.getText().toString();
+                heighttxt = height.getText().toString();
+                cardNumbertxt = cardNumber.getText().toString();
 
-                if(radio1.isSelected())
-                {
-                    gender="male";
-                }
-                else if(radio2.isSelected())
-                {
-                    gender="female";
-                }
+                RadioGroup g = (RadioGroup) findViewById(R.id.radioGroup);
+
+// Returns an integer which represents the selected radio button's ID
+                int selectedID = g.getCheckedRadioButtonId();
+
+// Gets a reference to our "selected" radio button
+                RadioButton b = (RadioButton) findViewById(selectedID);
+
+// Now you can get the text or whatever you want from the "selected" radio button
+                gender = b.getText().toString();
 
 
                 myIntent = new Intent(NewPatientActivity.this,DoctorPatientFileActivity.class);
@@ -106,93 +103,34 @@ public class NewPatientActivity extends AppCompatActivity {
                 myIntent.putExtra("BLOOD",Blood);
                 myIntent.putExtra("MEDCOM",MedCompany);
                 myIntent.putExtra("MARITAL",Marital);
-                myIntent.putExtra("NAME",nametxt);
+                myIntent.putExtra("NAME",pfirst);
                 myIntent.putExtra("LASTNAME",lastNametxt);
                 myIntent.putExtra("EMAIL",emailtxt);
-                myIntent.putExtra("AGE",agetxt);
+                myIntent.putExtra("AGE", Integer.valueOf(agetxt));
                 myIntent.putExtra("PHONE",photxt);
                 myIntent.putExtra("SOCIAL",soctxt);
-                myIntent.putExtra("PHYSICAL",phytxt);
                 myIntent.putExtra("POSTAL",postxt);
                 myIntent.putExtra("WEIGHT",weighttxt);
                 myIntent.putExtra("HEIGHT",heighttxt);
                 myIntent.putExtra("CARDNUM",cardNumbertxt);
+                myIntent.putExtra("RADIO",gender);
+                myIntent.putExtra("qrcode", qrcode);
                 myIntent.putStringArrayListExtra("SELECT",selection);
 
 
                 progress.show();
                 //Starts posting the patient step by step
 
-                //Step 1: Post part 1
+
                 try
                 {
                     params.put("qrcode", qrcode);
-                    params.put("pfirst", nametxt);
+                    params.put("pfirst", pfirst);
                     params.put("plast", lastNametxt);
                     params.put("ssn", soctxt);
                     params.put("address", postxt);
                     params.put("hcname", MedCompany);
                     params.put("hcnum", cardNumbertxt);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                controller.callPostData("post/patient/part1/", params, context);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress.setProgress(25);
-                    }
-                }, 1000);
-
-                //Step 2: get pid, aid, hcid
-                idsObject = controller.callGetPatientData("patient/"+qrcode+"/"+postxt+"/"+cardNumbertxt, "3Ids", context);
-                try {
-                    pid = idsObject.getInt("pid");
-                    aid = idsObject.getInt("aid");
-                    hcid = idsObject.getInt("hcid");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                }, 2000);
-
-                //Step 3: Post part 2
-                params = new JSONObject();
-                try
-                {
-                    params.put("pid", pid);
-                    params.put("vdate", Calendar.DATE);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                controller.callPostData("post/patient/part2/", params, context);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress.setProgress(50);
-                    }
-                }, 1000);
-
-                //Step 4: get vid
-                idsObject = controller.callGetPatientData("patients/vid/"+qrcode, "vid", context);
-                try {
-                    vid = idsObject.getInt("vid");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                }, 2000);
-
-                //Step 5: Post part 3
-                params = new JSONObject();
-                try
-                {
                     params.put("email", emailtxt);
                     params.put("marital", Marital);
                     params.put("gender", gender);
@@ -200,61 +138,33 @@ public class NewPatientActivity extends AppCompatActivity {
                     params.put("weight", weighttxt);
                     params.put("height", heighttxt);
                     params.put("blood", Blood);
-                    params.put("pid", pid);
-                    params.put("aid", aid);
-                    params.put("hcid", hcid);
                     params.put("age", agetxt);
-                    params.put("vid", vid);
+                    params.put("number", selection.size());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                controller.callPostData("post/patient/part3/", params, context);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        progress.setProgress(75);
-                    }
-                }, 1000);
 
-                //Step 6: get diagid
-                idsObject = controller.callGetPatientData("patient/"+qrcode+"/"+vid, "diagid", context);
-                try {
-                    diagid = idsObject.getInt("diagid");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                    }
-                }, 2000);
-
-                //Step 7: Post part 4
-                String temp;
                 for(int i=0; i<selection.size();i++) {
-                    params = new JSONObject();
                     temp = selection.get(i).replace("- ", "");
                     try {
-                        params.put("diagid", diagid);
-                        params.put("cname", temp);
-                        params.put("severity", "High");
+                        params.put("cname"+(i+1), temp);
+//                        params.put("severity"+(i+1), "High");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    controller.callPostData("post/patient/part4/", params, context);
-                    (new Handler()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                        }
-                    }, 1000);
                 }
-                progress.setProgress(100);
-                progress.dismiss();
-                startActivity(myIntent);
+                controller.callPostData("post/patient/", params, context);
+
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        progress.setProgress(100);
+                        progress.dismiss();
+                        startActivity(myIntent);
+                    }
+                }, 4000);
             }
         });
-
-
     }
 
     public void selectItems( View view) {
@@ -313,26 +223,6 @@ public class NewPatientActivity extends AppCompatActivity {
 
 
     }
-
-    /*public void FinalSelection( View view) {
-        String final_fruit_selection = "";
-        for (String selections : selection) {
-            final_fruit_selection = final_fruit_selection + selections + "\n";
-
-        }
-        final_text.setText(final_fruit_selection);
-        final_text.setEnabled(true);
-    }*/
-
-   /* public void addListenerOnCheckBoxesSelection() {
-        String[] checkBoxes = new
-        for(int i =1 ; i>12;i++) {
-
-            if (checkBox.isSelected()) {
-                String s = checkBox.getText().toString();
-            }
-        }
-    }*/
 
     public void addListenerOnSpinnerItemSelection1() {
         spinnerMarital = (Spinner) findViewById(R.id.mStatus);

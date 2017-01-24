@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+        moveTaskToBack(true);
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -97,19 +97,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        if(patient==null) {
+                        System.out.println(qrcode + "   No se porque no funciona");
+                        System.out.println(patient.getQrcode() + " El problema es aca entonces");
+
+                        if(!patient.getQrcode().equals(qrcode)) {
                             Toast.makeText(MainActivity.this, "Patient file wasn't found, please add new patient.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(MainActivity.this, NewPatientActivity.class);
                             intent.putExtra("qrcode", qrcode);
                             progress.dismiss();
-                            startActivityForResult(intent, 2);
+                            //startActivityForResult(intent, 2);
+                            startActivity(intent);
                         }
                         else
                         {
                             Intent intent = new Intent(MainActivity.this, DoctorPatientFileActivity.class);
                             intent.putExtra("patient", patient); //to get date call: getIntent().getSerializableExtra("patient");
                             progress.dismiss();
-                            startActivityForResult(intent, 3);
+                            //startActivityForResult(intent, 3);
+                            startActivity(intent);
                         }
 
                     }

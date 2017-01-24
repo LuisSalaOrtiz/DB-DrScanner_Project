@@ -89,7 +89,7 @@
 
 
             <TextView
-                android:text="Date of Birth:"
+                android:text="Age:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/fullAgeView"
@@ -100,7 +100,8 @@
                 android:layout_marginTop="13dp"
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/fullEmailView"
-                android:layout_toStartOf="@+id/lnameView" />
+                android:layout_toStartOf="@+id/lnameView"
+                android:layout_alignEnd="@+id/fullEmailView" />
 
             <TextView
                 android:text="Marital Status: "
@@ -121,12 +122,12 @@
                 android:layout_height="wrap_content"
                 android:ems="4"
                 android:id="@+id/maritalSelection"
-                android:hint="Selection"
                 android:layout_alignBaseline="@+id/maritalStatus"
                 android:layout_alignBottom="@+id/maritalStatus"
-                android:layout_toEndOf="@+id/maritalStatus"
                 android:textSize="20sp"
-                android:textColor="#FFFFFFFF"/>
+                android:textColor="#FFFFFFFF"
+                android:layout_alignEnd="@+id/remailView"
+                android:layout_toEndOf="@+id/fnameView" />
 
             <TextView
                 android:text="Gender: "
@@ -452,7 +453,7 @@
                 android:inputType="text"
                 android:ems="10"
                 android:id="@+id/birthDate"
-                android:hint="yyyy-mm-dd"
+                android:hint="30"
                 android:clickable="false"
                 android:editable="false"
                 android:cursorVisible="false"
@@ -461,7 +462,7 @@
                 android:layout_alignBaseline="@+id/fullAgeView"
                 android:layout_alignBottom="@+id/fullAgeView"
                 android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@+id/maritalStatus"
+                android:layout_toEndOf="@+id/fullAgeView"
                 android:textSize="18sp"
                 android:textColor="#FFFFFF" />
 
@@ -483,11 +484,11 @@
                 android:layout_height="wrap_content"
                 android:ems="4"
                 android:id="@+id/genderSelection"
-                android:hint="Selection"
                 android:textSize="20sp"
                 android:textColor="#FFFFFFFF"
                 android:layout_above="@+id/fullPhoneView"
-                android:layout_alignEnd="@+id/weightView" />
+                android:layout_alignEnd="@+id/maritalSelection"
+                android:layout_toEndOf="@+id/recordSelection" />
 
             <!--
                         <android.support.v7.widget.RecyclerView

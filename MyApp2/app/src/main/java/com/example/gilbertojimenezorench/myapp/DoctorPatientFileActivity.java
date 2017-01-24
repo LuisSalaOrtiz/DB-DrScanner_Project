@@ -1,7 +1,10 @@
 package com.example.gilbertojimenezorench.myapp;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -9,12 +12,14 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 public class DoctorPatientFileActivity extends AppCompatActivity {
     Button edit,delete;
-    String name,lastName,email,phone,postal,social,weight,height,cardNumber;
+    String name,lastName,email,phone,postal,social,weight,height,cardNumber, gender, qrcode;
     TextView nameView, lastNameView, emailView, birthView,phoneView,socialView
             ,postalView,weightView,heightView,cardNumberView
             ,maritalView,genderView,bloodView,companyView,diseaseView;
@@ -23,6 +28,10 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
     private RadioGroup rg;
     ArrayList<String> selection= new ArrayList<String>();
     Patients patient;
+    ClientController controller;
+    Context context = this;
+    JSONObject params;
+    ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +39,8 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_patient_file);
 
         patient = (Patients) getIntent().getExtras().getSerializable("patient");
+
+        controller = ClientController.getInstance();
 
         nameView = (TextView) findViewById(R.id.fnameView);
         lastNameView = (TextView) findViewById(R.id.lnameView);
@@ -50,47 +61,58 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
 
         ArrayList<String> myList = (ArrayList<String>) getIntent().getSerializableExtra("SELECT");
 
-        String selectedRadioValue = getIntent().getStringExtra("RADIO");
         String bloodtype = getIntent().getStringExtra("BLOOD");
         String maritaltype = getIntent().getStringExtra("MARITAL");
         String medicaretype = getIntent().getStringExtra("MEDCOM");
         String conditionSelection = "";
 
-        //Set Extras from new patient activity
-        name = getIntent().getStringExtra("NAME");
-        lastName = getIntent().getStringExtra("LASTNAME");
-        email = getIntent().getStringExtra("EMAIL");
-        //birth = getIntent().getStringExtra("AGE");
-        phone = getIntent().getStringExtra("PHONE");
-        social = getIntent().getStringExtra("SOCIAL");
-        postal = getIntent().getStringExtra("POSTAL");
-        weight = getIntent().getStringExtra("WEIGHT");
-        height = getIntent().getStringExtra("HEIGHT");
-        cardNumber = getIntent().getStringExtra("CARDNUM");
+        progress = new ProgressDialog(context);
+        progress.setMessage("Deleting...");
 
         //Set Extras from Database retrieved info
-        name = patient.getPfname();
-        lastName = patient.getPlname();
-        email = patient.getInfo().getEmail();
-        age = patient.getInfo().getAge();
-        phone = patient.getInfo().getPhone();
-        social = patient.getSsn();
-        postal = patient.getInfo().getAddressInfo().getAddress();
-        weight = patient.getInfo().getWeight();
-        height = patient.getInfo().getHeight();
-        cardNumber = patient.getInfo().getHealth().getHcnum();
+        if(patient!=null) {
+            name = patient.getPfname();
+            lastName = patient.getPlname();
+            email = patient.getInfo().getEmail();
+            age = patient.getInfo().getAge();
+            phone = patient.getInfo().getPhone();
+            social = patient.getSsn();
+            postal = patient.getInfo().getAddressInfo().getAddress();
+            weight = patient.getInfo().getWeight();
+            height = patient.getInfo().getHeight();
+            cardNumber = patient.getInfo().getHealth().getHcnum();
+            gender = patient.getInfo().getGender();
+            qrcode = patient.getQrcode();
+        }
+        else
+        {
+            //Set Extras from new patient activity
+            name = getIntent().getStringExtra("NAME");
+            lastName = getIntent().getStringExtra("LASTNAME");
+            email = getIntent().getStringExtra("EMAIL");
+            age = getIntent().getIntExtra("AGE", 30);
+            phone = getIntent().getStringExtra("PHONE");
+            social = getIntent().getStringExtra("SOCIAL");
+            postal = getIntent().getStringExtra("POSTAL");
+            weight = getIntent().getStringExtra("WEIGHT");
+            height = getIntent().getStringExtra("HEIGHT");
+            cardNumber = getIntent().getStringExtra("CARDNUM");
+            gender = getIntent().getStringExtra("RADIO");
+            qrcode = getIntent().getStringExtra("qrcode");
+        }
 
         // Set Text
         nameView.setText(name);
         lastNameView.setText(lastName);
         emailView.setText(email);
-        birthView.setText(age);
+        birthView.setText(String.valueOf(age));
         phoneView.setText(phone);
         socialView.setText(social);
         postalView.setText(postal);
         weightView.setText(weight);
         heightView.setText(height);
         cardNumberView.setText(cardNumber);
+        genderView.setText(gender);
 
         if(getIntent().hasExtra("patient"))
         {
@@ -111,7 +133,6 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
         else {
             for (String selections : myList) {conditionSelection = conditionSelection + selections + "\n";}
             maritalView.setText(maritaltype);
-            genderView.setText(selectedRadioValue);
             bloodView.setText(bloodtype);
             companyView.setText(medicaretype);
             diseaseView.setText(conditionSelection);
@@ -164,9 +185,19 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DoctorPatientFileActivity.this, MainActivity.class);
-                Toast.makeText(DoctorPatientFileActivity.this, "File has been deleted", Toast.LENGTH_LONG).show();
-                startActivity(intent);
+
+                controller.callDeleteData("delete/patient/"+qrcode, context);
+                progress.show();
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(DoctorPatientFileActivity.this, MainActivity.class);
+                        progress.dismiss();
+                        Toast.makeText(DoctorPatientFileActivity.this, "File has been deleted", Toast.LENGTH_LONG).show();
+                        controller.reset();
+                        startActivity(intent);
+                    }
+                }, 2000);
             }
         });
 
@@ -175,6 +206,7 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DoctorPatientFileActivity.this, MainActivity.class);
+                controller.reset();
                 startActivity(intent);
             }
         });

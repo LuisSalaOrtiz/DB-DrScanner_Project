@@ -146,11 +146,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/radioGroup"
-                android:layout_below="@+id/gender">
+                android:layout_below="@+id/gender"
+                android:checkedButton="@+id/maleRadioBtn"
+            android:clickable="false">
 
             <RadioButton
                 android:text="Male"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/maleRadioBtn"
                 android:layout_marginTop="15dp"
