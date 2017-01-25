@@ -127,7 +127,7 @@ public class DoctorPatientFileActivity extends AppCompatActivity {
                     diseaseView.setText(conditionNames);
                     conditionNames += "\n\n";
                 }
-                diseaseView.setText(conditionNames+"\n");
+                diseaseView.setText(conditionNames);
             }
         }
         else {

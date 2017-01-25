@@ -466,7 +466,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         @Override
         protected void onPostExecute(final Boolean success) {
 
-            loginUser = controller.callGetUserData("users/"+mEmail, "users", LoginActivity.this);
+            loginUser = controller.callGetUserData("users/"+mEmail+"/"+mPassword, "users", LoginActivity.this);
 
             (new Handler()).postDelayed(new Runnable() {
                 @Override
@@ -475,7 +475,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                     {
                         if(loginUser.getPassword().equals(mPassword))
                         {
-                            if(loginUser.getType().equals("admin"))
+                            if(loginUser.getType().equals("Admin"))
                             {
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("user", "Welcome");

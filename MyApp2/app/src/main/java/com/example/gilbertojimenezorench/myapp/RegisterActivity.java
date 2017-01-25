@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -62,8 +63,6 @@ public class RegisterActivity extends AppCompatActivity {
                 lname = ((EditText) findViewById(R.id.lnametxt)).getText().toString();
                 rpass = ((EditText) findViewById(R.id.rpasstxt)).getText().toString();
                 rcell = ((EditText) findViewById(R.id.rcelltext)).getText().toString();
-                radio1 = (RadioButton) findViewById(R.id.adminRadioBtn);
-                radio2 = (RadioButton) findViewById(R.id.nurseRadioBtn);
                 type="general";
 
                 if (email == null) {
@@ -83,14 +82,16 @@ public class RegisterActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if(radio1.isSelected())
-                    {
-                        type="admin";
-                    }
-                    else if(radio2.isSelected())
-                    {
-                        type="general";
-                    }
+                    RadioGroup g = (RadioGroup) findViewById(R.id.typeRadioGroup);
+
+// Returns an integer which represents the selected radio button's ID
+                    int selectedID = g.getCheckedRadioButtonId();
+
+// Gets a reference to our "selected" radio button
+                    RadioButton b = (RadioButton) findViewById(selectedID);
+
+// Now you can get the text or whatever you want from the "selected" radio button
+                    type = b.getText().toString();
 
                     try {
                         params.put("password",rpass);

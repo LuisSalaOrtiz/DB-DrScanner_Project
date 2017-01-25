@@ -87,8 +87,8 @@ public class GeneralUserActivity extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        if(patient==null) {
-                            Toast.makeText(GeneralUserActivity.this, "Patient file wasn't found, please add new patient.", Toast.LENGTH_SHORT).show();
+                        if(!patient.getQrcode().equals(qrcode)) {
+                            Toast.makeText(GeneralUserActivity.this, "Patient file wasn't found.", Toast.LENGTH_SHORT).show();
                             progress.dismiss();
                         }
                         else
@@ -101,11 +101,6 @@ public class GeneralUserActivity extends AppCompatActivity {
 
                     }
                 }, 5000);
-                for(int i = 0; i<10;i++) {
-                    if(patient != null)
-                        System.out.println(patient.getPfname());
-                }
-
             }
 
         }
